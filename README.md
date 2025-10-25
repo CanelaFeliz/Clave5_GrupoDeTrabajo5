@@ -1,2 +1,2 @@
-# Clave5_GrupoDeTrabajo5
-SISTEMA PARA UNA INMOBILIARIA
+- SISTEMA PARA UNA INMOBILIARIA
+- Sistema para una inmobiliaria, aplicando los principios de Programación Orientada a Objetos
