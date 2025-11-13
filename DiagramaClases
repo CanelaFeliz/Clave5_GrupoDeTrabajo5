@@ -1,22 +1,22 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="28.2.9">
   <diagram name="Página-1" id="SH3YZWNbo6Ok8fjSaF30">
-    <mxGraphModel dx="1585" dy="1153" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+    <mxGraphModel dx="2180" dy="1248" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-46" value="" style="group;fontSize=14;" vertex="1" connectable="0" parent="1">
-          <mxGeometry x="201" y="90" width="1198.88" height="720" as="geometry" />
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-48" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="200" y="70" width="1200" height="760" as="geometry" />
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;fontSize=14;" edge="1" parent="OWZTjdz7_Zm1DDlsKXFi-46" source="OWZTjdz7_Zm1DDlsKXFi-4" target="OWZTjdz7_Zm1DDlsKXFi-7">
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;fontSize=14;" edge="1" parent="OWZTjdz7_Zm1DDlsKXFi-48" source="OWZTjdz7_Zm1DDlsKXFi-4" target="OWZTjdz7_Zm1DDlsKXFi-7">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="120" y="360" />
+              <mxPoint x="120" y="400" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-23" value="*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;" vertex="1" connectable="0" parent="OWZTjdz7_Zm1DDlsKXFi-22">
           <mxGeometry x="0.8308" y="1" relative="1" as="geometry">
-            <mxPoint x="-15" as="offset" />
+            <mxPoint x="-13" y="1" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-24" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;" vertex="1" connectable="0" parent="OWZTjdz7_Zm1DDlsKXFi-22">
@@ -29,17 +29,17 @@
             <mxPoint x="-59" y="-82" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-4" value="Empleado" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-46">
-          <mxGeometry width="240" height="200" as="geometry" />
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-4" value="Empleado" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-48">
+          <mxGeometry width="240" height="240" as="geometry" />
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-5" value="&amp;nbsp; &amp;nbsp; - codigo: String&lt;br&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;- nombre: String&lt;br&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;- cargo: String&lt;br&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;- salario: double&lt;br&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;- propiedadesGestionadas: List&amp;lt;String&amp;gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-4">
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-5" value="&amp;nbsp; &amp;nbsp; - codigo: String&lt;br&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;- nombre: String&lt;br&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;- cargo: String&lt;br&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;- salario: double&lt;br&gt;&amp;nbsp; &amp;nbsp;- propiedadesGestionadas:&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;List&amp;lt;String&amp;gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-4">
           <mxGeometry y="40" width="240" height="120" as="geometry" />
         </mxCell>
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-6" value="&amp;nbsp; &amp;nbsp;&amp;nbsp;+ Empleado(...)&lt;br&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ get/set...()&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-4">
-          <mxGeometry y="160" width="240" height="40" as="geometry" />
+          <mxGeometry y="160" width="240" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-7" value="Contrato" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-46">
-          <mxGeometry x="238.88" y="240" width="240" height="240" as="geometry" />
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-7" value="Contrato" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-48">
+          <mxGeometry x="240" y="280" width="240" height="240" as="geometry" />
         </mxCell>
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-8" value="&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;span style=&quot;text-align: center;&quot;&gt;- idContrato: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;span style=&quot;text-align: center;&quot;&gt;- idCliente: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;span style=&quot;text-align: center;&quot;&gt;- idPropiedad: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;span style=&quot;text-align: center;&quot;&gt;- idEmpleado: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;span style=&quot;text-align: center;&quot;&gt;- tipoOperacion: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;span style=&quot;text-align: center;&quot;&gt;- fechaContrato: LocalDate&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;span style=&quot;text-align: center;&quot;&gt;- monto: double&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&lt;/span&gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-7">
           <mxGeometry y="40" width="240" height="120" as="geometry" />
@@ -47,8 +47,8 @@
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-9" value="&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;span style=&quot;text-align: center;&quot;&gt;+ Contrato(...)&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp; + get/set...()&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp; + calcularComision(): double&lt;/span&gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-7">
           <mxGeometry y="160" width="240" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-11" value="Propiedad" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-46">
-          <mxGeometry x="478.88" y="520" width="240" height="200" as="geometry" />
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-11" value="Propiedad" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-48">
+          <mxGeometry x="480" y="560" width="240" height="200" as="geometry" />
         </mxCell>
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-12" value="&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp; - codigo: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- tipo: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- direccion: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- precio: double&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- estado: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- idPropietario: String&lt;/span&gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-11">
           <mxGeometry y="40" width="240" height="120" as="geometry" />
@@ -56,7 +56,7 @@
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-13" value="&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;+ Propiedad(...)&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;+ get/set...()&lt;/span&gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-11">
           <mxGeometry y="160" width="240" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-14" value="Usuario" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-46">
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-14" value="Usuario" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-48">
           <mxGeometry x="478.88" width="240" height="200" as="geometry" />
         </mxCell>
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-15" value="&lt;span style=&quot;text-align: center;&quot;&gt;- idUsuario: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- nombreUsuario: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- contrasena: String&lt;/span&gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-14">
@@ -65,7 +65,7 @@
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-16" value="&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;+ Usuario(...)&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;+ get/set...()&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp; + login(): boolean&lt;/span&gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-14">
           <mxGeometry y="120" width="240" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;dashed=1;fontSize=14;" edge="1" parent="OWZTjdz7_Zm1DDlsKXFi-46" source="OWZTjdz7_Zm1DDlsKXFi-5" target="OWZTjdz7_Zm1DDlsKXFi-15">
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;dashed=1;fontSize=14;" edge="1" parent="OWZTjdz7_Zm1DDlsKXFi-48" source="OWZTjdz7_Zm1DDlsKXFi-5" target="OWZTjdz7_Zm1DDlsKXFi-15">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-18" value="Tiene una cuenta" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;" vertex="1" connectable="0" parent="OWZTjdz7_Zm1DDlsKXFi-17">
@@ -83,19 +83,19 @@
             <mxPoint x="9" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-26" value="Cliente" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-46">
-          <mxGeometry x="718.88" y="240" width="240" height="200" as="geometry" />
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-26" value="Cliente" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-48">
+          <mxGeometry x="720" y="280" width="240" height="240" as="geometry" />
         </mxCell>
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-27" value="&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- id: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- nombre: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- apellido: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- telefono: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- correo: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- tipo: String&lt;/span&gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-26">
           <mxGeometry y="40" width="240" height="120" as="geometry" />
         </mxCell>
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-28" value="&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;+ Cliente(...)&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp; + get/set...()&lt;/span&gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-26">
-          <mxGeometry y="160" width="240" height="40" as="geometry" />
+          <mxGeometry y="160" width="240" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;curved=0;fontSize=14;" edge="1" parent="OWZTjdz7_Zm1DDlsKXFi-46" source="OWZTjdz7_Zm1DDlsKXFi-7" target="OWZTjdz7_Zm1DDlsKXFi-11">
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;curved=0;fontSize=14;" edge="1" parent="OWZTjdz7_Zm1DDlsKXFi-48" source="OWZTjdz7_Zm1DDlsKXFi-7" target="OWZTjdz7_Zm1DDlsKXFi-11">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="359" y="640" />
+              <mxPoint x="360.12" y="680" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -114,8 +114,13 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;fontSize=14;" edge="1" parent="OWZTjdz7_Zm1DDlsKXFi-46" source="OWZTjdz7_Zm1DDlsKXFi-8" target="OWZTjdz7_Zm1DDlsKXFi-26">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;fontSize=14;" edge="1" parent="OWZTjdz7_Zm1DDlsKXFi-48" source="OWZTjdz7_Zm1DDlsKXFi-8" target="OWZTjdz7_Zm1DDlsKXFi-26">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="660" y="380" />
+              <mxPoint x="660" y="380" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-36" value="Tiene" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;" vertex="1" connectable="0" parent="OWZTjdz7_Zm1DDlsKXFi-33">
           <mxGeometry x="0.0155" relative="1" as="geometry">
@@ -132,16 +137,16 @@
             <mxPoint x="-6" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-39" value="Propietario" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-46">
-          <mxGeometry x="958.88" y="520" width="240" height="200" as="geometry" />
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-39" value="Propietario" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-48">
+          <mxGeometry x="960" y="560" width="240" height="200" as="geometry" />
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-40" value="&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- idPropietario: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- nombre: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- telefono: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- correo: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- propiedadesAsociadas: List&amp;lt;String&amp;gt;&lt;/span&gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-39">
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-40" value="&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- idPropietario: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- nombre: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- telefono: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- correo: String&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;- propiedadesAsociadas:&lt;/span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;span style=&quot;text-align: center;&quot;&gt;List&amp;lt;String&amp;gt;&lt;/span&gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-39">
           <mxGeometry y="40" width="240" height="120" as="geometry" />
         </mxCell>
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-41" value="&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp; + Propietario(...)&lt;/span&gt;&lt;br style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;text-align: center;&quot;&gt;&amp;nbsp; &amp;nbsp; + get/set...()&lt;/span&gt;" style="whiteSpace=wrap;html=1;align=left;fontSize=14;" vertex="1" parent="OWZTjdz7_Zm1DDlsKXFi-39">
           <mxGeometry y="160" width="240" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=14;dashed=1;" edge="1" parent="OWZTjdz7_Zm1DDlsKXFi-46" source="OWZTjdz7_Zm1DDlsKXFi-12" target="OWZTjdz7_Zm1DDlsKXFi-39">
+        <mxCell id="OWZTjdz7_Zm1DDlsKXFi-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=14;dashed=1;" edge="1" parent="OWZTjdz7_Zm1DDlsKXFi-48" source="OWZTjdz7_Zm1DDlsKXFi-12" target="OWZTjdz7_Zm1DDlsKXFi-39">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="OWZTjdz7_Zm1DDlsKXFi-43" value="Posee" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;" vertex="1" connectable="0" parent="OWZTjdz7_Zm1DDlsKXFi-42">
