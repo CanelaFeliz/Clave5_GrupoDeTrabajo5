@@ -7,6 +7,7 @@ package com.poo115.inmobiliaria.vistas;
 import com.poo115.inmobiliaria.modelos.Usuario;
 import com.poo115.inmobiliaria.vistas.FrmGestionPropiedades;
 import com.poo115.inmobiliaria.vistas.FrmGestionClientes;
+import com.poo115.inmobiliaria.vistas.FrmGestionEmpleados;
 /**
  *
  * @author Galleta
@@ -77,6 +78,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         btnGestionContratos.setText("Contratos");
 
         btnGestionEmpleados.setText("Empleados");
+        btnGestionEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionEmpleadosActionPerformed(evt);
+            }
+        });
 
         btnGestionPropietarios.setText("Propietarios");
 
@@ -156,6 +162,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         FrmGestionClientes frm = new FrmGestionClientes();
         frm.setVisible(true);
     }//GEN-LAST:event_btnGestionClientesActionPerformed
+
+    private void btnGestionEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEmpleadosActionPerformed
+        // Crea y muestra la ventana de gestión de empleados
+        FrmGestionEmpleados frm = new FrmGestionEmpleados();
+        frm.setVisible(true);
+    }//GEN-LAST:event_btnGestionEmpleadosActionPerformed
 
     /**
      * @param args the command line arguments
