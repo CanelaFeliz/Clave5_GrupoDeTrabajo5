@@ -10,10 +10,7 @@ import com.poo115.inmobiliaria.vistas.FrmGestionClientes;
 import com.poo115.inmobiliaria.vistas.FrmGestionEmpleados;
 import com.poo115.inmobiliaria.vistas.FrmGestionPropietarios;
 import com.poo115.inmobiliaria.vistas.FrmGestionContratos;
-/**
- *
- * @author Galleta
- */
+
 public class FrmMenuPrincipal extends javax.swing.JFrame {
     
     private Usuario usuarioLogueado;
@@ -29,11 +26,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         initComponents();
         this.usuarioLogueado = usuario;
         
-        // 1. Centrar la ventana en pantalla
         this.setLocationRelativeTo(null); 
         
-        // 2. (Opcional) Mostrar bienvenida personalizada
-        // Si creaste el JLabel lblBienvenida en el paso 3.3:
         lblBienvenida.setText("Bienvenido, " + this.usuarioLogueado.getNombreUsuario());
     }
 
