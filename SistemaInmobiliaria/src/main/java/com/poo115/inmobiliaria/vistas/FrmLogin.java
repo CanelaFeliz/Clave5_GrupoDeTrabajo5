@@ -4,6 +4,11 @@
  */
 package com.poo115.inmobiliaria.vistas;
 
+import com.poo115.inmobiliaria.modelos.Usuario;
+import com.poo115.inmobiliaria.persistencia.UsuarioDAO;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Galleta
@@ -15,6 +20,10 @@ public class FrmLogin extends javax.swing.JFrame {
      */
     public FrmLogin() {
         initComponents();
+        
+        this.setLocationRelativeTo(null); 
+     
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**
@@ -26,23 +35,122 @@ public class FrmLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        txtUsuario = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtClave = new javax.swing.JPasswordField();
+        btnIngresar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Autenticación de Usuario");
+
+        jLabel1.setText("Usuario:");
+
+        jLabel2.setText("Contraseña:");
+
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(155, 155, 155)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnIngresar)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                    .addComponent(txtClave))
+                .addContainerGap(160, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(btnIngresar)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        /**
+     * Maneja el evento de clic en el botón "Ingresar".
+     * Valida los campos y utiliza el UsuarioDAO para verificar las credenciales.
+     */                                          
+        
+        // 1. Obtener los datos de la GUI
+        String usuario = txtUsuario.getText();
+        
+        // JPasswordField devuelve un array de caracteres (char[])
+        char[] claveChars = txtClave.getPassword();
+        String clave = new String(claveChars);
+
+        // 2. Validación de Campos Vacíos
+        if (usuario.isBlank() || clave.isBlank()) {
+            JOptionPane.showMessageDialog(this,
+                    "El nombre de usuario y la contraseña no pueden estar vacíos.",
+                    "Campos Vacíos",
+                    JOptionPane.WARNING_MESSAGE);
+            return; // Detiene la ejecución si los campos están vacíos
+        }
+
+        // 3. Lógica de Autenticación
+        try {
+            // Instanciamos el DAO
+            UsuarioDAO usuarioDao = new UsuarioDAO();
+            
+            // Llamamos al método de verificación
+            // (Según el archivo UsuarioDAO.java, este método devuelve un objeto Usuario o null)
+            Usuario usuarioValidado = usuarioDao.verificarCredenciales(usuario, clave);
+
+            // 4. Evaluar el resultado
+            if (usuarioValidado != null) {
+                // Login Exitoso
+                JOptionPane.showMessageDialog(this,
+                        "¡Bienvenido, " + usuarioValidado.getNombreUsuario() + "!",
+                        "Login Exitoso",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                // TODO (Paso 3.3): Llamar al Menú Principal
+                // FrmMenuPrincipal menu = new FrmMenuPrincipal(usuarioValidado);
+                // menu.setVisible(true);
+                
+                // 5. Cerrar la ventana de Login
+                this.dispose();
+
+            } else {
+                // Login Fallido
+                JOptionPane.showMessageDialog(this,
+                        "Usuario o contraseña incorrectos.",
+                        "Error de Autenticación",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            // Manejo de errores (ej. si no se puede conectar a la BD)
+            JOptionPane.showMessageDialog(this,
+                    "Ocurrió un error al intentar conectar con la base de datos.\n" + e.getMessage(),
+                    "Error de Conexión",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +188,10 @@ public class FrmLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIngresar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPasswordField txtClave;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
