@@ -19,44 +19,28 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * DAO para la Gestión de Contratos (Paso 5).
- * Implementa las operaciones CRUD para el modelo Contrato.
- * Incluye la lógica para actualizar el estado de una propiedad al crear un contrato.
- */
+
 public class ContratoDAO {
 
     private static final String COLECCION_CONTRATOS = "contratos";
     private static final String COLECCION_PROPIEDADES = "propiedades";
     private final MongoCollection<Document> coleccionContratos;
-    private final MongoCollection<Document> coleccionPropiedades; // Colección para actualizar estado
+    private final MongoCollection<Document> coleccionPropiedades; 
     private static final Logger LOGGER = Logger.getLogger(ContratoDAO.class.getName());
 
-    /**
-     * Constructor. Obtiene la conexión a la base de datos y
-     * las colecciones 'contratos' y 'propiedades'.
-     */
+  
     public ContratoDAO() {
         MongoDatabase db = ConexionMongo.getDatabase();
         this.coleccionContratos = db.getCollection(COLECCION_CONTRATOS);
         this.coleccionPropiedades = db.getCollection(COLECCION_PROPIEDADES);
     }
 
-    // --- Métodos CRUD ---
-
-    /**
-     * CREATE (Registrar): Inserta un nuevo contrato y actualiza el estado de la propiedad.
-     *
-     * @param contrato El objeto Contrato a insertar.
-     */
     public boolean registrarContrato(Contrato contrato) {
         try {
-            // 1. Registrar el contrato
             Document doc = contratoToDocument(contrato);
             coleccionContratos.insertOne(doc);
-            LOGGER.log(Level.INFO, "Contrato registrado con éxito: {0}", contrato.getIdContrato());
+            LOGGER.log(Level.INFO, "Contrato registrado con exito: {0}", contrato.getIdContrato());
 
-            // 2. Actualizar el estado de la propiedad (Requisito )
             actualizarEstadoPropiedad(contrato.getIdPropiedad(), contrato.getTipoOperacion());
             
             return true;
@@ -66,12 +50,7 @@ public class ContratoDAO {
         }
     }
 
-    /**
-     * READ (Buscar): Busca un contrato por su ID único.
-     *
-     * @param idContrato El ID del contrato a buscar.
-     * @return Un objeto Contrato si se encuentra, o null si no.
-     */
+   
     public Contrato buscarContratoPorId(String idContrato) {
         try {
             Bson filtro = Filters.eq("idContrato", idContrato);
@@ -85,10 +64,7 @@ public class ContratoDAO {
         return null;
     }
 
-    /**
-     * READ (Listar): Obtiene todos los contratos registrados.
-     * @return Una lista de objetos Contrato.
-     */
+    
     public List<Contrato> obtenerTodosLosContratos() {
         List<Contrato> contratos = new ArrayList<>();
         try {
@@ -102,13 +78,7 @@ public class ContratoDAO {
         return contratos;
     }
 
-    /**
-     * UPDATE (Editar): Actualiza un contrato existente.
-     * Nota: Esta implementación no revierte el estado de la propiedad original
-     * si se cambia la propiedad o el tipo de operación.
-     *
-     * @param contrato El objeto Contrato con los datos actualizados.
-     */
+    
     public boolean editarContrato(Contrato contrato) {
         try {
             Bson filtro = Filters.eq("idContrato", contrato.getIdContrato());
@@ -125,11 +95,10 @@ public class ContratoDAO {
             UpdateResult resultado = coleccionContratos.updateOne(filtro, actualizacion);
             if (resultado.getModifiedCount() > 0) {
                 LOGGER.log(Level.INFO, "Contrato actualizado con éxito: {0}", contrato.getIdContrato());
-                // Actualizar también el estado de la nueva propiedad
                 actualizarEstadoPropiedad(contrato.getIdPropiedad(), contrato.getTipoOperacion());
                 return true;
             } else {
-                 LOGGER.log(Level.WARNING, "No se encontró el contrato para actualizar: {0}", contrato.getIdContrato());
+                 LOGGER.log(Level.WARNING, "No se encontro el contrato para actualizar: {0}", contrato.getIdContrato());
                  return false;
             }
         } catch (Exception e) {
@@ -138,22 +107,16 @@ public class ContratoDAO {
         }
     }
 
-    /**
-     * DELETE (Eliminar): Elimina un contrato.
-     * Nota: No revierte el estado de la propiedad a "Disponible".
-     *
-     * @param idContrato El ID del contrato a eliminar.
-     */
     public boolean eliminarContrato(String idContrato) {
         try {
             Bson filtro = Filters.eq("idContrato", idContrato);
             DeleteResult resultado = coleccionContratos.deleteOne(filtro);
             
             if (resultado.getDeletedCount() > 0) {
-                LOGGER.log(Level.INFO, "Contrato eliminado con éxito: {0}", idContrato);
+                LOGGER.log(Level.INFO, "Contrato eliminado con exito: {0}", idContrato);
                 return true;
             } else {
-                LOGGER.log(Level.WARNING, "No se encontró el contrato para eliminar: {0}", idContrato);
+                LOGGER.log(Level.WARNING, "No se encontro el contrato para eliminar: {0}", idContrato);
                 return false;
             }
         } catch (Exception e) {
@@ -162,13 +125,7 @@ public class ContratoDAO {
         }
     }
 
-    // --- Métodos de Lógica de Negocio ---
     
-    /**
-     * Actualiza el estado de una propiedad en la colección 'propiedades'.
-     * @param idPropiedad El código de la propiedad a actualizar.
-     * @param tipoOperacion El tipo de operación ("Venta" o "Alquiler").
-     */
     private void actualizarEstadoPropiedad(String idPropiedad, String tipoOperacion) {
         String nuevoEstado = "";
         if ("Venta".equalsIgnoreCase(tipoOperacion)) {
@@ -176,7 +133,6 @@ public class ContratoDAO {
         } else if ("Alquiler".equalsIgnoreCase(tipoOperacion)) {
             nuevoEstado = "Alquilada";
         } else {
-            // Si el tipo de operación no es Venta o Alquiler, no hacer nada.
             return;
         }
 
@@ -196,15 +152,7 @@ public class ContratoDAO {
     }
 
 
-    // --- Métodos Auxiliares de Conversión ---
-
-    /**
-     * Convierte un objeto Contrato (POJO) a un Documento BSON de MongoDB.
-     * @param contrato El objeto POJO.
-     * @return El Documento BSON.
-     */
     private Document contratoToDocument(Contrato contrato) {
-        // Convertir LocalDate (Java 8+) a Date (java.util.Date) para MongoDB
         Date fecha = Date.from(contrato.getFechaContrato().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         return new Document()
@@ -217,15 +165,10 @@ public class ContratoDAO {
                 .append("monto", contrato.getMonto());
     }
 
-    /**
-     * Convierte un Documento BSON de MongoDB a un objeto Contrato (POJO).
-     * @param doc El Documento BSON.
-     * @return El objeto POJO.
-     */
+   
     private Contrato documentToContrato(Document doc) {
         Contrato contrato = new Contrato();
         
-        // Convertir Date (java.util.Date) de MongoDB a LocalDate (Java 8+)
         Date fecha = doc.getDate("fechaContrato");
         LocalDate localDate = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 

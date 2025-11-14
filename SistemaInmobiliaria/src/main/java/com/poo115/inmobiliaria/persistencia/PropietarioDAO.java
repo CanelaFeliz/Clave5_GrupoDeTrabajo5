@@ -16,32 +16,20 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * DAO para la Gestión de Propietarios (Paso 4).
- * Implementa las operaciones CRUD para el modelo Propietario.
- */
+
 public class PropietarioDAO {
 
     private static final String COLECCION_NOMBRE = "propietarios";
     private final MongoCollection<Document> coleccion;
     private static final Logger LOGGER = Logger.getLogger(PropietarioDAO.class.getName());
 
-    /**
-     * Constructor. Obtiene la conexión a la base de datos y
-     * la colección 'propietarios'.
-     */
+    
     public PropietarioDAO() {
         MongoDatabase db = ConexionMongo.getDatabase();
         this.coleccion = db.getCollection(COLECCION_NOMBRE);
     }
 
-    // --- Métodos CRUD ---
-
-    /**
-     * CREATE (Registrar): Inserta un nuevo propietario en la base de datos.
-     *
-     * @param propietario El objeto Propietario a insertar.
-     */
+    
     public void registrarPropietario(Propietario propietario) {
         try {
             Document doc = propietarioToDocument(propietario);
@@ -52,12 +40,7 @@ public class PropietarioDAO {
         }
     }
 
-    /**
-     * READ (Buscar): Busca un propietario por su ID único.
-     *
-     * @param idPropietario El ID del propietario a buscar.
-     * @return Un objeto Propietario si se encuentra, o null si no.
-     */
+   
     public Propietario buscarPropietarioPorId(String idPropietario) {
         try {
             Bson filtro = Filters.eq("idPropietario", idPropietario);
@@ -71,10 +54,7 @@ public class PropietarioDAO {
         return null;
     }
 
-    /**
-     * READ (Listar): Obtiene todos los propietarios registrados.
-     * @return Una lista de objetos Propietario.
-     */
+    
     public List<Propietario> obtenerTodosLosPropietarios() {
         List<Propietario> propietarios = new ArrayList<>();
         try {
@@ -88,11 +68,6 @@ public class PropietarioDAO {
         return propietarios;
     }
 
-    /**
-     * UPDATE (Editar): Actualiza un propietario existente en la base de datos.
-     *
-     * @param propietario El objeto Propietario con los datos actualizados.
-     */
     public boolean editarPropietario(Propietario propietario) {
         try {
             Bson filtro = Filters.eq("idPropietario", propietario.getIdPropietario());
@@ -118,11 +93,7 @@ public class PropietarioDAO {
         }
     }
 
-    /**
-     * DELETE (Eliminar): Elimina un propietario de la base de datos usando su ID.
-     *
-     * @param idPropietario El ID del propietario a eliminar.
-     */
+    
     public boolean eliminarPropietario(String idPropietario) {
         try {
             Bson filtro = Filters.eq("idPropietario", idPropietario);
@@ -141,13 +112,7 @@ public class PropietarioDAO {
         }
     }
 
-    // --- Métodos Auxiliares de Conversión ---
-
-    /**
-     * Convierte un objeto Propietario (POJO) a un Documento BSON de MongoDB.
-     * @param propietario El objeto POJO.
-     * @return El Documento BSON.
-     */
+   
     private Document propietarioToDocument(Propietario propietario) {
         return new Document()
                 .append("idPropietario", propietario.getIdPropietario())
@@ -157,11 +122,7 @@ public class PropietarioDAO {
                 .append("propiedadesAsociadas", propietario.getPropiedadesAsociadas());
     }
 
-    /**
-     * Convierte un Documento BSON de MongoDB a un objeto Propietario (POJO).
-     * @param doc El Documento BSON.
-     * @return El objeto POJO.
-     */
+   
     private Propietario documentToPropietario(Document doc) {
         Propietario propietario = new Propietario();
         propietario.setIdPropietario(doc.getString("idPropietario"));
@@ -169,7 +130,6 @@ public class PropietarioDAO {
         propietario.setTelefono(doc.getString("telefono"));
         propietario.setCorreo(doc.getString("correo"));
         
-        // Manejo de la lista de propiedades asociadas
         List<String> propiedades = doc.getList("propiedadesAsociadas", String.class);
         if (propiedades != null) {
             propietario.setPropiedadesAsociadas(propiedades);

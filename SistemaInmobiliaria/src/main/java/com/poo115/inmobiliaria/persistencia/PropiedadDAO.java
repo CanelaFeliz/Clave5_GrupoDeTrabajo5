@@ -16,33 +16,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * DAO para la Gestión de Propiedades (Paso 1).
- * Implementa las operaciones CRUD (Crear, Leer, Actualizar, Eliminar)
- * para el modelo Propiedad, interactuando con MongoDB.
- */
+
 public class PropiedadDAO {
 
     private static final String COLECCION_NOMBRE = "propiedades";
     private final MongoCollection<Document> coleccion;
     private static final Logger LOGGER = Logger.getLogger(PropiedadDAO.class.getName());
 
-    /**
-     * Constructor. Obtiene la conexión a la base de datos y
-     * la colección 'propiedades'.
-     */
     public PropiedadDAO() {
         MongoDatabase db = ConexionMongo.getDatabase();
         this.coleccion = db.getCollection(COLECCION_NOMBRE);
     }
 
-    // --- Métodos CRUD ---
-
-    /**
-     * CREATE (Registrar): Inserta una nueva propiedad en la base de datos.
-     [cite_start]* [cite: 132]
-     * @param propiedad El objeto Propiedad a insertar.
-     */
+   
     public void registrarPropiedad(Propiedad propiedad) {
         try {
             Document doc = propiedadToDocument(propiedad);
@@ -53,12 +39,6 @@ public class PropiedadDAO {
         }
     }
 
-    /**
-     * READ (Buscar): Busca una propiedad por su código único.
-     [cite_start]* [cite: 133]
-     * @param codigo El código de la propiedad a buscar.
-     * @return Un objeto Propiedad si se encuentra, o null si no.
-     */
     public Propiedad buscarPropiedadPorCodigo(String codigo) {
         try {
             Bson filtro = Filters.eq("codigo", codigo);
@@ -72,10 +52,6 @@ public class PropiedadDAO {
         return null;
     }
 
-    /**
-     * READ (Listar): Obtiene todas las propiedades registradas.
-     * @return Una lista de objetos Propiedad.
-     */
     public List<Propiedad> obtenerTodasLasPropiedades() {
         List<Propiedad> propiedades = new ArrayList<>();
         try {
@@ -89,11 +65,7 @@ public class PropiedadDAO {
         return propiedades;
     }
 
-    /**
-     * UPDATE (Editar): Actualiza una propiedad existente en la base de datos.
-     [cite_start]* [cite: 133]
-     * @param propiedad El objeto Propiedad con los datos actualizados.
-     */
+    
     public boolean editarPropiedad(Propiedad propiedad) {
         try {
             Bson filtro = Filters.eq("codigo", propiedad.getCodigo());
@@ -108,10 +80,10 @@ public class PropiedadDAO {
 
             UpdateResult resultado = coleccion.updateOne(filtro, actualizacion);
             if (resultado.getModifiedCount() > 0) {
-                LOGGER.log(Level.INFO, "Propiedad actualizada con éxito: {0}", propiedad.getCodigo());
+                LOGGER.log(Level.INFO, "Propiedad actualizada con exito: {0}", propiedad.getCodigo());
                 return true;
             } else {
-                 LOGGER.log(Level.WARNING, "No se encontró la propiedad para actualizar: {0}", propiedad.getCodigo());
+                 LOGGER.log(Level.WARNING, "No se encontro la propiedad para actualizar: {0}", propiedad.getCodigo());
                  return false;
             }
         } catch (Exception e) {
@@ -120,21 +92,16 @@ public class PropiedadDAO {
         }
     }
 
-    /**
-     * DELETE (Eliminar): Elimina una propiedad de la base de datos usando su código.
-     [cite_start]* [cite: 133]
-     * @param codigo El código de la propiedad a eliminar.
-     */
     public boolean eliminarPropiedad(String codigo) {
         try {
             Bson filtro = Filters.eq("codigo", codigo);
             DeleteResult resultado = coleccion.deleteOne(filtro);
             
             if (resultado.getDeletedCount() > 0) {
-                LOGGER.log(Level.INFO, "Propiedad eliminada con éxito: {0}", codigo);
+                LOGGER.log(Level.INFO, "Propiedad eliminada con exito: {0}", codigo);
                 return true;
             } else {
-                LOGGER.log(Level.WARNING, "No se encontró la propiedad para eliminar: {0}", codigo);
+                LOGGER.log(Level.WARNING, "No se encontro la propiedad para eliminar: {0}", codigo);
                 return false;
             }
         } catch (Exception e) {
@@ -143,13 +110,6 @@ public class PropiedadDAO {
         }
     }
 
-    // --- Métodos Auxiliares de Conversión ---
-
-    /**
-     * Convierte un objeto Propiedad (POJO) a un Documento BSON de MongoDB.
-     * @param propiedad El objeto POJO.
-     * @return El Documento BSON.
-     */
     private Document propiedadToDocument(Propiedad propiedad) {
         return new Document()
                 .append("codigo", propiedad.getCodigo())
@@ -160,11 +120,7 @@ public class PropiedadDAO {
                 .append("propietarioId", propiedad.getIdPropietario());
     }
 
-    /**
-     * Convierte un Documento BSON de MongoDB a un objeto Propiedad (POJO).
-     * @param doc El Documento BSON.
-     * @return El objeto POJO.
-     */
+    
     private Propiedad documentToPropiedad(Document doc) {
         Propiedad propiedad = new Propiedad();
         propiedad.setCodigo(doc.getString("codigo"));

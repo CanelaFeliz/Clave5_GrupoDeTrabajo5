@@ -16,32 +16,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * DAO para la Gestión de Empleados (Paso 3).
- * Implementa las operaciones CRUD para el modelo Empleado.
- */
+
 public class EmpleadoDAO {
 
     private static final String COLECCION_NOMBRE = "empleados";
     private final MongoCollection<Document> coleccion;
     private static final Logger LOGGER = Logger.getLogger(EmpleadoDAO.class.getName());
 
-    /**
-     * Constructor. Obtiene la conexión a la base de datos y
-     * la colección 'empleados'.
-     */
+   
     public EmpleadoDAO() {
         MongoDatabase db = ConexionMongo.getDatabase();
         this.coleccion = db.getCollection(COLECCION_NOMBRE);
     }
 
-    // --- Métodos CRUD ---
-
-    /**
-     * CREATE (Registrar): Inserta un nuevo empleado en la base de datos.
-     *
-     * @param empleado El objeto Empleado a insertar.
-     */
     public void registrarEmpleado(Empleado empleado) {
         try {
             Document doc = empleadoToDocument(empleado);
@@ -52,12 +39,6 @@ public class EmpleadoDAO {
         }
     }
 
-    /**
-     * READ (Buscar): Busca un empleado por su código único.
-     *
-     * @param codigo El código del empleado a buscar.
-     * @return Un objeto Empleado si se encuentra, o null si no.
-     */
     public Empleado buscarEmpleadoPorCodigo(String codigo) {
         try {
             Bson filtro = Filters.eq("codigo", codigo);
@@ -71,10 +52,7 @@ public class EmpleadoDAO {
         return null;
     }
 
-    /**
-     * READ (Listar): Obtiene todos los empleados registrados.
-     * @return Una lista de objetos Empleado.
-     */
+   
     public List<Empleado> obtenerTodosLosEmpleados() {
         List<Empleado> empleados = new ArrayList<>();
         try {
@@ -88,11 +66,6 @@ public class EmpleadoDAO {
         return empleados;
     }
 
-    /**
-     * UPDATE (Editar): Actualiza un empleado existente en la base de datos.
-     *
-     * @param empleado El objeto Empleado con los datos actualizados.
-     */
     public boolean editarEmpleado(Empleado empleado) {
         try {
             Bson filtro = Filters.eq("codigo", empleado.getCodigo());
@@ -106,10 +79,10 @@ public class EmpleadoDAO {
 
             UpdateResult resultado = coleccion.updateOne(filtro, actualizacion);
             if (resultado.getModifiedCount() > 0) {
-                LOGGER.log(Level.INFO, "Empleado actualizado con éxito: {0}", empleado.getCodigo());
+                LOGGER.log(Level.INFO, "Empleado actualizado con exito: {0}", empleado.getCodigo());
                 return true;
             } else {
-                 LOGGER.log(Level.WARNING, "No se encontró el empleado para actualizar: {0}", empleado.getCodigo());
+                 LOGGER.log(Level.WARNING, "No se encontro el empleado para actualizar: {0}", empleado.getCodigo());
                  return false;
             }
         } catch (Exception e) {
@@ -118,21 +91,17 @@ public class EmpleadoDAO {
         }
     }
 
-    /**
-     * DELETE (Eliminar): Elimina un empleado de la base de datos usando su código.
-     *
-     * @param codigo El código del empleado a eliminar.
-     */
+   
     public boolean eliminarEmpleado(String codigo) {
         try {
             Bson filtro = Filters.eq("codigo", codigo);
             DeleteResult resultado = coleccion.deleteOne(filtro);
             
             if (resultado.getDeletedCount() > 0) {
-                LOGGER.log(Level.INFO, "Empleado eliminado con éxito: {0}", codigo);
+                LOGGER.log(Level.INFO, "Empleado eliminado con exito: {0}", codigo);
                 return true;
             } else {
-                LOGGER.log(Level.WARNING, "No se encontró el empleado para eliminar: {0}", codigo);
+                LOGGER.log(Level.WARNING, "No se encontro el empleado para eliminar: {0}", codigo);
                 return false;
             }
         } catch (Exception e) {
@@ -141,13 +110,7 @@ public class EmpleadoDAO {
         }
     }
 
-    // --- Métodos Auxiliares de Conversión ---
-
-    /**
-     * Convierte un objeto Empleado (POJO) a un Documento BSON de MongoDB.
-     * @param empleado El objeto POJO.
-     * @return El Documento BSON.
-     */
+  
     private Document empleadoToDocument(Empleado empleado) {
         return new Document()
                 .append("codigo", empleado.getCodigo())
@@ -157,11 +120,6 @@ public class EmpleadoDAO {
                 .append("propiedadesGestionadas", empleado.getPropiedadesGestionadas());
     }
 
-    /**
-     * Convierte un Documento BSON de MongoDB a un objeto Empleado (POJO).
-     * @param doc El Documento BSON.
-     * @return El objeto POJO.
-     */
     private Empleado documentToEmpleado(Document doc) {
         Empleado empleado = new Empleado();
         empleado.setCodigo(doc.getString("codigo"));
@@ -169,7 +127,6 @@ public class EmpleadoDAO {
         empleado.setCargo(doc.getString("cargo"));
         empleado.setSalario(doc.getDouble("salario"));
         
-        // Manejo de la lista de propiedades gestionadas
         List<String> propiedades = doc.getList("propiedadesGestionadas", String.class);
         if (propiedades != null) {
             empleado.setPropiedadesGestionadas(propiedades);
