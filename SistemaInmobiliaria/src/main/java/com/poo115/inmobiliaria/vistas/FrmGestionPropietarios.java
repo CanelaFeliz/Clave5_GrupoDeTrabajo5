@@ -4,17 +4,44 @@
  */
 package com.poo115.inmobiliaria.vistas;
 
+import com.poo115.inmobiliaria.modelos.Propietario;
+import com.poo115.inmobiliaria.persistencia.PropietarioDAO;
+import java.util.List;
+import java.util.regex.Pattern; 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList; 
+
+
 /**
  *
- * @author 2023
+ * @author NixieNixi
  */
 public class FrmGestionPropietarios extends javax.swing.JFrame {
 
+    
+    private PropietarioDAO propietarioDao;
+    private DefaultTableModel tableModel;
+
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+    private static final String TELEFONO_REGEX = "^[267]\\d{7}$";
     /**
      * Creates new form FrmGestionPropietarios
      */
-    public FrmGestionPropietarios() {
+    public FrmGestionPropietarios() 
+    {
         initComponents();
+        this.propietarioDao = new PropietarioDAO();
+
+        configurarModeloTabla();
+
+        cargarTabla();
+
+        configurarListenerTabla();
+
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -54,12 +81,32 @@ public class FrmGestionPropietarios extends javax.swing.JFrame {
         lblCorreo.setText("Correo:");
 
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar Formulario");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         tblPropietarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -163,10 +210,111 @@ public class FrmGestionPropietarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarFormulario();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        if (validarCampos(true)) {
+            
+            String id = txtIdPropietario.getText();
+            
+            if (propietarioDao.buscarPropietarioPorId(id) != null) {
+                 JOptionPane.showMessageDialog(this, 
+                         "El ID de Propietario ingresado ya existe. Intente con otro.", 
+                         "Error: ID Duplicado", 
+                         JOptionPane.WARNING_MESSAGE);
+                 return; 
+            }
+
+            String nombre = txtNombre.getText();
+            String telefono = txtTelefono.getText();
+            String correo = txtCorreo.getText();
+            List<String> propiedadesAsociadas = new ArrayList<>(); 
+
+            Propietario p = new Propietario(id, nombre, telefono, correo, propiedadesAsociadas);
+            
+            propietarioDao.registrarPropietario(p);
+            
+            JOptionPane.showMessageDialog(this, 
+                    "Propietario registrado con exito.", 
+                    "Registro Exitoso", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+            limpiarFormulario();
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (txtIdPropietario.getText().isBlank() || txtIdPropietario.isEnabled()) {
+             JOptionPane.showMessageDialog(this, 
+                     "Por favor, seleccione un propietario de la tabla para editar.", 
+                     "Error de Selecion", 
+                     JOptionPane.WARNING_MESSAGE);
+             return;
+        }
+        
+        if (!validarCampos(false)) {
+            return;
+        }
+        
+        String id = txtIdPropietario.getText(); 
+        String nombre = txtNombre.getText();
+        String telefono = txtTelefono.getText();
+        String correo = txtCorreo.getText();
+
+        Propietario pExistente = propietarioDao.buscarPropietarioPorId(id);
+        List<String> propiedadesAsociadas = (pExistente != null) ? pExistente.getPropiedadesAsociadas() : new ArrayList<>();
+
+        Propietario p = new Propietario(id, nombre, telefono, correo, propiedadesAsociadas);
+        
+        boolean exito = propietarioDao.editarPropietario(p);
+        
+        if (exito) {
+            JOptionPane.showMessageDialog(this, "Propietario actualizado con éxito.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo actualizar el propietario (ID no encontrado).", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        cargarTabla();
+        limpiarFormulario();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int filaSeleccionada = tblPropietarios.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, 
+                    "Seleccione un propietario de la tabla para eliminar.", 
+                    "Error de Selección", 
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String id = tblPropietarios.getValueAt(filaSeleccionada, 0).toString();
+      
+        
+        int confirmacion = JOptionPane.showConfirmDialog(this, 
+            "¿Está seguro de que desea eliminar al propietario con ID: " + id + "?", 
+            "Confirmar Eliminación", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            boolean exito = propietarioDao.eliminarPropietario(id);
+            
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Propietario eliminado con éxito.", "Eliminación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar el propietario.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            cargarTabla();
+            limpiarFormulario();
+        }    }//GEN-LAST:event_btnEliminarActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -198,6 +346,124 @@ public class FrmGestionPropietarios extends javax.swing.JFrame {
         });
     }
 
+    
+    private void configurarModeloTabla()
+    {
+        tableModel = new DefaultTableModel(
+            new Object[][]{}, 
+            new String[]{"ID Propietario", "Nombre", "Teléfono", "Correo"}
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
+        tblPropietarios.setModel(tableModel);
+    } 
+    
+    
+    private void cargarTabla()
+    {
+        tableModel.setRowCount(0);
+        
+        List<Propietario> propietarios = propietarioDao.obtenerTodosLosPropietarios();
+        
+        for (Propietario p : propietarios) {
+            tableModel.addRow(new Object[]{
+                p.getIdPropietario(),
+                p.getNombre(),
+                p.getTelefono(),
+                p.getCorreo()
+            });
+        }
+    }
+    
+    /**
+     * Resetea todos los campos del formulario a sus valores por defecto.
+     */
+    private void limpiarFormulario() 
+    {
+        txtIdPropietario.setText("");
+        txtNombre.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+        
+        txtIdPropietario.setEnabled(true);
+    }
+    
+    /**
+     * Valida que los campos del formulario no estén vacíos
+     * y que el teléfono y correo tengan formatos válidos.
+     * @param esRegistro Si es true, valida también el campo ID.
+     * @return true si la validación es exitosa, false en caso contrario.
+     */
+    private boolean validarCampos(boolean esRegistro) {
+        String id = txtIdPropietario.getText();
+        String nombre = txtNombre.getText();
+        String telefono = txtTelefono.getText();
+        String correo = txtCorreo.getText();
+
+        if (nombre.isBlank() || telefono.isBlank() || correo.isBlank()) {
+            JOptionPane.showMessageDialog(this, 
+                    "Los campos Nombre, Teléfono y Correo no pueden estar vacíos.", 
+                    "Error de Validación", 
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (esRegistro && id.isBlank()) {
+             JOptionPane.showMessageDialog(this, 
+                    "El campo ID Propietario no puede estar vacío.", 
+                    "Error de Validación", 
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (!Pattern.matches(TELEFONO_REGEX, telefono)) {
+             JOptionPane.showMessageDialog(this, 
+                    "Formato de teléfono inválido. Debe ser un número de 8 dígitos (Ej. 77778888).", 
+                    "Error de Formato", 
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+         if (!Pattern.matches(EMAIL_REGEX, correo)) {
+             JOptionPane.showMessageDialog(this, 
+                    "Formato de correo electrónico inválido.", 
+                    "Error de Formato", 
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+    
+   
+    private void configurarListenerTabla() {
+        tblPropietarios.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int filaSeleccionada = tblPropietarios.getSelectedRow();
+                
+                if (filaSeleccionada != -1) {
+                    String id = tableModel.getValueAt(filaSeleccionada, 0).toString();
+                    String nombre = tableModel.getValueAt(filaSeleccionada, 1).toString();
+                    String telefono = tableModel.getValueAt(filaSeleccionada, 2).toString();
+                    String correo = tableModel.getValueAt(filaSeleccionada, 3).toString();
+
+                    txtIdPropietario.setText(id);
+                    txtNombre.setText(nombre);
+                    txtTelefono.setText(telefono);
+                    txtCorreo.setText(correo);
+                    
+                    txtIdPropietario.setEnabled(false);
+                }
+            }
+        });
+    }
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
