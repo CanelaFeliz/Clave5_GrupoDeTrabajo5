@@ -13,10 +13,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/**
- *
- * @author 2023
- */
 public class FrmGestionClientes extends javax.swing.JFrame {
 
     private ClienteDAO clienteDao;
@@ -26,9 +22,6 @@ public class FrmGestionClientes extends javax.swing.JFrame {
     private static final String TELEFONO_REGEX = "^[267]\\d{7}$";
     
         
-    /**
-     * Creates new form FrmGestionClientes
-     */
     public FrmGestionClientes() {
         initComponents();
 
@@ -42,10 +35,7 @@ public class FrmGestionClientes extends javax.swing.JFrame {
 
         this.setLocationRelativeTo(null);
     }
-    /**
-     * Configura el DefaultTableModel para la tblClientes,
-     * definiendo las columnas y haciéndolas no editables.
-     */
+    
     private void configurarModeloTabla() {
         tableModel = new DefaultTableModel(
             new Object[][]{}, 
@@ -59,10 +49,6 @@ public class FrmGestionClientes extends javax.swing.JFrame {
         tblClientes.setModel(tableModel);
     }
     
-    /**
-     * Obtiene la lista actualizada de clientes desde el DAO
-     * y las muestra en la JTable.
-     */
     private void cargarTabla() {
         tableModel.setRowCount(0);
         
@@ -80,9 +66,6 @@ public class FrmGestionClientes extends javax.swing.JFrame {
         }
     }
     
-    /**
-     * Resetea todos los campos del formulario a sus valores por defecto.
-     */
     private void limpiarFormulario() {
         txtId.setText("");
         txtNombre.setText("");
@@ -95,12 +78,6 @@ public class FrmGestionClientes extends javax.swing.JFrame {
         txtId.setEnabled(true);
     }
     
-    /**
-     * Valida que los campos del formulario no estén vacíos
-     * y que el teléfono y correo tengan formatos válidos.
-     * @param esRegistro Si es true, valida también el campo ID.
-     * @return true si la validación es exitosa, false en caso contrario.
-     */
     private boolean validarCampos(boolean esRegistro) {
         String id = txtId.getText();
         String nombre = txtNombre.getText();
@@ -447,12 +424,10 @@ public class FrmGestionClientes extends javax.swing.JFrame {
              return;
         }
         
-        
         if (!validarCampos(false)) {
           
             return;
         }
-        
         
         String id = txtId.getText(); 
         String nombre = txtNombre.getText();
@@ -460,13 +435,10 @@ public class FrmGestionClientes extends javax.swing.JFrame {
         String telefono = txtTelefono.getText();
         String correo = txtCorreo.getText();
         String tipo = rbtComprador.isSelected() ? "Comprador" : "Arrendatario";
-
-       
-        Cliente c = new Cliente(id, nombre, apellido, telefono, correo, tipo);
         
+        Cliente c = new Cliente(id, nombre, apellido, telefono, correo, tipo);
      
         boolean exito = clienteDao.editarCliente(c);
-        
       
         if (exito) {
             JOptionPane.showMessageDialog(this, "Cliente actualizado con éxito.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
@@ -488,16 +460,13 @@ public class FrmGestionClientes extends javax.swing.JFrame {
             return;
         }
         
-        
         String id = tblClientes.getValueAt(filaSeleccionada, 0).toString();
-        
         
         int confirmacion = JOptionPane.showConfirmDialog(this, 
             "¿Esta seguro de que desea eliminar al cliente con ID: " + id + "?", 
             "Confirmar Eliminación", 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE);
-
         
         if (confirmacion == JOptionPane.YES_OPTION) {
             
@@ -514,10 +483,6 @@ public class FrmGestionClientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

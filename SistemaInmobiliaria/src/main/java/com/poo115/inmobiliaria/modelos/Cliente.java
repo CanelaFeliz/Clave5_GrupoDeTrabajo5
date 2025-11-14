@@ -1,38 +1,19 @@
 package com.poo115.inmobiliaria.modelos;
 
-/**
- * Clase POJO que representa a un Cliente (comprador o arrendatario).
- * Sus atributos se basan en el Diagrama de Clases
- * y se alinean con la colección 'clientes' del EsquemaDB.
- */
 public class Cliente {
 
-    // --- Atributos ---
-    private String id; // Corresponde a 'clienteId' en la BD
+    
+    private String id; 
     private String nombre;
     private String apellido;
     private String telefono;
     private String correo;
-    private String tipo; // "Comprador" o "Arrendatario"
+    private String tipo; 
 
-    // --- Constructores ---
-
-    /**
-     * Constructor por defecto.
-     */
     public Cliente() {
+        
     }
-
-    /**
-     * Constructor completo para inicializar todos los atributos.
-     *
-     * @param id       ID único del cliente
-     * @param nombre   Nombre del cliente
-     * @param apellido Apellido del cliente
-     * @param telefono Teléfono de contacto
-     * @param correo   Email de contacto
-     * @param tipo     Tipo de cliente ("Comprador" o "Arrendatario")
-     */
+    
     public Cliente(String id, String nombre, String apellido, String telefono, String correo, String tipo) {
         this.id = id;
         this.nombre = nombre;
@@ -41,9 +22,7 @@ public class Cliente {
         this.correo = correo;
         this.tipo = tipo;
     }
-
-    // --- Getters y Setters ---
-
+    
     public String getId() {
         return id;
     }
@@ -91,8 +70,7 @@ public class Cliente {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
-    // --- (Opcional) Método toString ---
+    
     @Override
     public String toString() {
         return "Cliente{" +

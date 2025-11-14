@@ -1,43 +1,21 @@
 package com.poo115.inmobiliaria.modelos;
 
-import java.time.LocalDate; // Importamos la clase para manejar fechas
+import java.time.LocalDate;
 
-/**
- * Clase POJO que representa un Contrato de venta o alquiler.
- * Vincula a un Cliente, una Propiedad y un Empleado.
- * Sus atributos se basan en el Diagrama de Clases
- * y se alinean con la colección 'contratos' del EsquemaDB.
- */
 public class Contrato {
 
-    // --- Atributos ---
     private String idContrato;
     private String idCliente;
     private String idPropiedad;
     private String idEmpleado;
-    private String tipoOperacion; // "Venta" o "Alquiler"
-    private LocalDate fechaContrato; //
+    private String tipoOperacion;
+    private LocalDate fechaContrato; 
     private double monto;
 
-    // --- Constructores ---
-
-    /**
-     * Constructor por defecto.
-     */
     public Contrato() {
+        
     }
 
-    /**
-     * Constructor completo para inicializar todos los atributos.
-     *
-     * @param idContrato    ID único del contrato
-     * @param idCliente     ID del cliente que firma
-     * @param idPropiedad   ID de la propiedad involucrada
-     * @param idEmpleado    ID del empleado que gestiona
-     * @param tipoOperacion Tipo de operación ("Venta" o "Alquiler")
-     * @param fechaContrato Fecha de la firma del contrato
-     * @param monto         Monto final de la operación
-     */
     public Contrato(String idContrato, String idCliente, String idPropiedad, String idEmpleado, String tipoOperacion, LocalDate fechaContrato, double monto) {
         this.idContrato = idContrato;
         this.idCliente = idCliente;
@@ -47,8 +25,6 @@ public class Contrato {
         this.fechaContrato = fechaContrato;
         this.monto = monto;
     }
-
-    // --- Getters y Setters ---
 
     public String getIdContrato() {
         return idContrato;
@@ -106,21 +82,10 @@ public class Contrato {
         this.monto = monto;
     }
 
-    // --- Métodos de Lógica de Negocio ---
-    
-    /**
-     * Método para calcular la comisión (aún sin implementar).
-     * Definido en el diagrama de clases.
-     * @return El monto de la comisión.
-     */
     public double calcularComision() {
-        // La lógica de cálculo se implementará más adelante.
-        // Por ejemplo: return this.monto * 0.05;
-        return 0.0;
+       return 0.0;
     }
-
-
-    // --- (Opcional) Método toString ---
+    
     @Override
     public String toString() {
         return "Contrato{" +

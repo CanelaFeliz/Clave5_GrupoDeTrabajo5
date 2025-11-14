@@ -1,13 +1,7 @@
 package com.poo115.inmobiliaria.modelos;
 
-/**
- * Clase POJO (Plain Old Java Object) que representa una Propiedad.
- * Contiene los atributos definidos en el Diagrama de Clases
- * y se alinea con la colección 'propiedades' del EsquemaDB.
- */
 public class Propiedad {
 
-    // --- Atributos ---
     private String codigo;
     private String tipo;
     private String direccion;
@@ -15,24 +9,10 @@ public class Propiedad {
     private String estado;
     private String idPropietario; 
 
-    // --- Constructores ---
-
-    /**
-     * Constructor por defecto.
-     */
     public Propiedad() {
+        
     }
 
-    /**
-     * Constructor completo para inicializar todos los atributos.
-     *
-     * @param codigo        Identificador único legible (ej. "P001")
-     * @param tipo          Tipo de propiedad ("Casa", "Apartamento", "Local")
-     * @param direccion     Dirección de la propiedad
-     * @param precio        Precio (debe ser positivo)
-     * @param estado        Estado actual ("Disponible", "Vendida", "Alquilada")
-     * @param idPropietario ID del propietario asociado
-     */
     public Propiedad(String codigo, String tipo, String direccion, double precio, String estado, String idPropietario) {
         this.codigo = codigo;
         this.tipo = tipo;
@@ -41,8 +21,6 @@ public class Propiedad {
         this.estado = estado;
         this.idPropietario = idPropietario;
     }
-
-    // --- Getters y Setters ---
 
     public String getCodigo() {
         return codigo;
@@ -92,7 +70,6 @@ public class Propiedad {
         this.idPropietario = idPropietario;
     }
 
-    // --- (Opcional) Método toString ---
     @Override
     public String toString() {
         return "Propiedad{" +
