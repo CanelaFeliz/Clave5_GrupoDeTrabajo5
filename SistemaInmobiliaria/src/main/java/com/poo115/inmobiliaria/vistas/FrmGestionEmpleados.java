@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.poo115.inmobiliaria.vistas;
 
 import com.poo115.inmobiliaria.modelos.Empleado;
@@ -13,10 +9,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList; 
 
-/**
- *
- * @author Galleta
- */
 public class FrmGestionEmpleados extends javax.swing.JFrame {
 
     private EmpleadoDAO empleadoDao;
@@ -67,9 +59,6 @@ public class FrmGestionEmpleados extends javax.swing.JFrame {
         }
     }
     
-    /**
-     * Resetea todos los campos del fornulario a sus valores por defecto.
-     */
     private void limpiarFormulario() {
         txtCodigo.setText("");
         txtNombre.setText("");
@@ -336,7 +325,7 @@ public class FrmGestionEmpleados extends javax.swing.JFrame {
              return;
         }
         
-        String codigo = txtCodigo.getText(); // Este campo está deshabilitado
+        String codigo = txtCodigo.getText();
         String nombre = txtNombre.getText();
         String cargo = txtCargo.getText();
         double salario = Double.parseDouble(txtSalario.getText());
