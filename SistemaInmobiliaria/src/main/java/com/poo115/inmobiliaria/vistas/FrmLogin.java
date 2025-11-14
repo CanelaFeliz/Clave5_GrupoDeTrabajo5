@@ -8,6 +8,7 @@ import com.poo115.inmobiliaria.modelos.Usuario;
 import com.poo115.inmobiliaria.persistencia.UsuarioDAO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import com.poo115.inmobiliaria.vistas.FrmMenuPrincipal;
 
 /**
  *
@@ -128,10 +129,17 @@ public class FrmLogin extends javax.swing.JFrame {
                         "Login Exitoso",
                         JOptionPane.INFORMATION_MESSAGE);
 
-                // TODO (Paso 3.3): Llamar al Menú Principal
-                // FrmMenuPrincipal menu = new FrmMenuPrincipal(usuarioValidado);
-                // menu.setVisible(true);
+                // --- INICIO DE MODIFICACIÓN (Paso 3.4) ---
                 
+                // 1. Crear una instancia del Menú Principal
+                //    pasándole el usuario que acabamos de validar.
+                FrmMenuPrincipal menu = new FrmMenuPrincipal(usuarioValidado);
+                
+                // 2. Hacer visible el menú
+                menu.setVisible(true);
+                
+                // --- FIN DE MODIFICACIÓN ---
+
                 // 5. Cerrar la ventana de Login
                 this.dispose();
 
