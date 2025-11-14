@@ -143,10 +143,7 @@ public class FrmGestionClientes extends javax.swing.JFrame {
         return true;
     }
     
-    /**
-     * Añade un MouseListener a la tabla para detectar clics en las filas.
-     * Cuando se selecciona una fila, sus datos se cargan en el formulario.
-     */
+    
     private void configurarListenerTabla() {
         tblClientes.addMouseListener(new MouseAdapter() {
             @Override

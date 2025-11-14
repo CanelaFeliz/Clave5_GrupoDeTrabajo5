@@ -8,6 +8,7 @@ import com.poo115.inmobiliaria.modelos.Usuario;
 import com.poo115.inmobiliaria.vistas.FrmGestionPropiedades;
 import com.poo115.inmobiliaria.vistas.FrmGestionClientes;
 import com.poo115.inmobiliaria.vistas.FrmGestionEmpleados;
+import com.poo115.inmobiliaria.vistas.FrmGestionPropietarios;
 /**
  *
  * @author Galleta
@@ -85,6 +86,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
 
         btnGestionPropietarios.setText("Propietarios");
+        btnGestionPropietarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionPropietariosActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -164,10 +170,14 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionClientesActionPerformed
 
     private void btnGestionEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEmpleadosActionPerformed
-        // Crea y muestra la ventana de gestión de empleados
         FrmGestionEmpleados frm = new FrmGestionEmpleados();
         frm.setVisible(true);
     }//GEN-LAST:event_btnGestionEmpleadosActionPerformed
+
+    private void btnGestionPropietariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionPropietariosActionPerformed
+        FrmGestionPropietarios frm = new FrmGestionPropietarios();
+        frm.setVisible(true);
+    }//GEN-LAST:event_btnGestionPropietariosActionPerformed
 
     /**
      * @param args the command line arguments

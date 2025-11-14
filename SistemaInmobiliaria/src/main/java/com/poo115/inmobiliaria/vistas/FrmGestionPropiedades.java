@@ -27,53 +27,37 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
     public FrmGestionPropiedades() {
         initComponents();
         
-        // 1. Inicializar el DAO
     this.propiedadDao = new PropiedadDAO();
 
-    // 2. Configurar el modelo de la tabla
     configurarModeloTabla();
 
-    // 3. Cargar los datos iniciales en la tabla
     cargarTabla();
 
-    // 4. Configurar el listener para clics en la tabla
     configurarListenerTabla();
 
-    // 5. Centrar la ventana
     this.setLocationRelativeTo(null);
     }
     
-    /**
-     * Configura el DefaultTableModel para la tblPropiedades,
-     * definiendo las columnas y haciéndolas no editables.
-     */
+    
     private void configurarModeloTabla() {
         tableModel = new DefaultTableModel(
-            new Object[][]{}, // Sin filas iniciales
+            new Object[][]{}, 
             new String[]{"Código", "Tipo", "Dirección", "Precio", "Estado", "ID Propietario"}
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                // Hace que todas las celdas de la tabla no sean editables
                 return false; 
             }
         };
-        // Asigna el modelo configurado a la JTable
         tblPropiedades.setModel(tableModel);
     }
     
-    /**
-     * Obtiene la lista actualizada de propiedades desde el DAO
-     * y las muestra en la JTable.
-     */
+    
     private void cargarTabla() {
-        // 1. Limpiar todas las filas existentes
         tableModel.setRowCount(0);
         
-        // 2. Obtener la lista de propiedades desde la base de datos
         List<Propiedad> propiedades = propiedadDao.obtenerTodasLasPropiedades();
         
-        // 3. Iterar sobre la lista y añadir cada propiedad como una fila
         for (Propiedad p : propiedades) {
             tableModel.addRow(new Object[]{
                 p.getCodigo(),
@@ -86,28 +70,19 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
         }
     }
     
-    /**
-     * Resetea todos los campos del formulario a sus valores por defecto.
-     */
+   
     private void limpiarFormulario() {
         txtCodigo.setText("");
         txtDireccion.setText("");
         txtPrecio.setText("");
         txtPropietarioId.setText("");
-        cmbTipo.setSelectedIndex(0); // Vuelve al primer ítem
-        cmbEstado.setSelectedIndex(0); // Vuelve al primer ítem
+        cmbTipo.setSelectedIndex(0); 
+        cmbEstado.setSelectedIndex(0);
         
-        // Rehabilita el campo código (en caso de que estuviera deshabilitado por una edición)
         txtCodigo.setEnabled(true);
     }
     
-    /**
-     * Valida que los campos del formulario no estén vacíos 
-     * y que el precio sea un número positivo.
-     * @return true si la validación es exitosa, false en caso contrario.
-     */
     private boolean validarCampos() {
-        // 1. Validación de campos vacíos
         if (txtCodigo.getText().isBlank() || txtDireccion.getText().isBlank() || 
             txtPrecio.getText().isBlank() || txtPropietarioId.getText().isBlank()) {
             
@@ -118,7 +93,6 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
             return false;
         }
         
-        // 2. Validación de precio (debe ser número y positivo)
         try {
             double precio = Double.parseDouble(txtPrecio.getText());
             if (precio <= 0) {
@@ -136,23 +110,17 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
             return false;
         }
         
-        // Si pasa ambas validaciones
         return true;
     }
     
-    /**
-     * Añade un MouseListener a la tabla para detectar clics en las filas.
-     * Cuando se selecciona una fila, sus datos se cargan en el formulario.
-     */
+ 
     private void configurarListenerTabla() {
         tblPropiedades.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int filaSeleccionada = tblPropiedades.getSelectedRow();
                 
-                // Asegurarse de que el clic fue en una fila válida
                 if (filaSeleccionada != -1) {
-                    // Obtener datos de la fila seleccionada desde el modelo
                     String codigo = tableModel.getValueAt(filaSeleccionada, 0).toString();
                     String tipo = tableModel.getValueAt(filaSeleccionada, 1).toString();
                     String direccion = tableModel.getValueAt(filaSeleccionada, 2).toString();
@@ -160,7 +128,6 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
                     String estado = tableModel.getValueAt(filaSeleccionada, 4).toString();
                     String idPropietario = tableModel.getValueAt(filaSeleccionada, 5).toString();
 
-                    // Poner datos en los campos del formulario
                     txtCodigo.setText(codigo);
                     txtDireccion.setText(direccion);
                     txtPrecio.setText(precio);
@@ -168,7 +135,6 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
                     cmbTipo.setSelectedItem(tipo);
                     cmbEstado.setSelectedItem(estado);
                     
-                    // Deshabilitar el campo código (la clave primaria no se debe editar)
                     txtCodigo.setEnabled(false);
                 }
             }
@@ -360,19 +326,16 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // 1. Validar los campos
         if (validarCampos()) {
             
-            // 2. Verificar si el código ya existe
             if (propiedadDao.buscarPropiedadPorCodigo(txtCodigo.getText()) != null) {
                  JOptionPane.showMessageDialog(this, 
                          "El código ingresado ya existe. Intente con otro.", 
                          "Error: Código Duplicado", 
                          JOptionPane.WARNING_MESSAGE);
-                 return; // Detiene el registro
+                 return; 
             }
 
-            // 3. Obtener datos del formulario
             String codigo = txtCodigo.getText();
             String tipo = cmbTipo.getSelectedItem().toString();
             String direccion = txtDireccion.getText();
@@ -380,13 +343,10 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
             String estado = cmbEstado.getSelectedItem().toString();
             String idPropietario = txtPropietarioId.getText();
 
-            // 4. Crear el objeto Propiedad
             Propiedad p = new Propiedad(codigo, tipo, direccion, precio, estado, idPropietario);
             
-            // 5. Llamar al DAO para registrar
             propiedadDao.registrarPropiedad(p);
             
-            // 6. Mostrar mensaje, recargar tabla y limpiar
             JOptionPane.showMessageDialog(this, 
                     "Propiedad registrada con éxito.", 
                     "Registro Exitoso", 
@@ -397,7 +357,6 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // 1. Validar que haya una fila seleccionada (el código no debe estar vacío)
         if (txtCodigo.getText().isBlank() || txtCodigo.isEnabled()) {
              JOptionPane.showMessageDialog(this, 
                      "Por favor, seleccione una propiedad de la tabla para editar.", 
@@ -406,8 +365,7 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
              return;
         }
         
-        // 2. Ejecutar validaciones (adaptadas para edición)
-        // (Re-usamos validarCampos pero ignoramos el chequeo de txtCodigo)
+        
         if (txtDireccion.getText().isBlank() || txtPrecio.getText().isBlank() || txtPropietarioId.getText().isBlank()) {
              JOptionPane.showMessageDialog(this, "Los campos dirección, precio e ID Propietario no pueden estar vacíos.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
              return;
@@ -423,7 +381,6 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
              return;
         }
         
-        // 3. Obtener datos del formulario
         String codigo = txtCodigo.getText(); // Este campo está deshabilitado
         String tipo = cmbTipo.getSelectedItem().toString();
         String direccion = txtDireccion.getText();
@@ -431,13 +388,10 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
         String estado = cmbEstado.getSelectedItem().toString();
         String idPropietario = txtPropietarioId.getText();
 
-        // 4. Crear el objeto Propiedad
         Propiedad p = new Propiedad(codigo, tipo, direccion, precio, estado, idPropietario);
         
-        // 5. Llamar al DAO para editar
         boolean exito = propiedadDao.editarPropiedad(p);
         
-        // 6. Mostrar mensaje, recargar tabla y limpiar
         if (exito) {
             JOptionPane.showMessageDialog(this, "Propiedad actualizada con éxito.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -448,7 +402,6 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // 1. Verificar que haya una fila seleccionada
         int filaSeleccionada = tblPropiedades.getSelectedRow();
         if (filaSeleccionada == -1) {
             JOptionPane.showMessageDialog(this, 
@@ -458,19 +411,15 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
             return;
         }
         
-        // 2. Obtener el código de la fila seleccionada
         String codigo = tblPropiedades.getValueAt(filaSeleccionada, 0).toString();
         
-        // 3. Pedir confirmación al usuario
         int confirmacion = JOptionPane.showConfirmDialog(this, 
             "¿Está seguro de que desea eliminar la propiedad con código: " + codigo + "?", 
             "Confirmar Eliminación", 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE);
 
-        // 4. Si el usuario confirma (YES_OPTION es 0)
         if (confirmacion == JOptionPane.YES_OPTION) {
-            // 5. Llamar al DAO para eliminar
             boolean exito = propiedadDao.eliminarPropiedad(codigo);
             
             if (exito) {
@@ -478,7 +427,6 @@ public class FrmGestionPropiedades extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo eliminar la propiedad.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            // 6. Recargar la tabla y limpiar el formulario
             cargarTabla();
             limpiarFormulario();
         }

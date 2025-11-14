@@ -96,55 +96,39 @@ public class FrmLogin extends javax.swing.JFrame {
      * Valida los campos y utiliza el UsuarioDAO para verificar las credenciales.
      */                                          
         
-        // 1. Obtener los datos de la GUI
         String usuario = txtUsuario.getText();
         
-        // JPasswordField devuelve un array de caracteres (char[])
         char[] claveChars = txtClave.getPassword();
         String clave = new String(claveChars);
 
-        // 2. Validación de Campos Vacíos
         if (usuario.isBlank() || clave.isBlank()) {
             JOptionPane.showMessageDialog(this,
                     "El nombre de usuario y la contraseña no pueden estar vacíos.",
                     "Campos Vacíos",
                     JOptionPane.WARNING_MESSAGE);
-            return; // Detiene la ejecución si los campos están vacíos
+            return; 
         }
 
-        // 3. Lógica de Autenticación
         try {
-            // Instanciamos el DAO
             UsuarioDAO usuarioDao = new UsuarioDAO();
             
-            // Llamamos al método de verificación
-            // (Según el archivo UsuarioDAO.java, este método devuelve un objeto Usuario o null)
             Usuario usuarioValidado = usuarioDao.verificarCredenciales(usuario, clave);
 
-            // 4. Evaluar el resultado
             if (usuarioValidado != null) {
-                // Login Exitoso
                 JOptionPane.showMessageDialog(this,
                         "¡Bienvenido, " + usuarioValidado.getNombreUsuario() + "!",
                         "Login Exitoso",
                         JOptionPane.INFORMATION_MESSAGE);
 
-                // --- INICIO DE MODIFICACIÓN (Paso 3.4) ---
                 
-                // 1. Crear una instancia del Menú Principal
-                //    pasándole el usuario que acabamos de validar.
                 FrmMenuPrincipal menu = new FrmMenuPrincipal(usuarioValidado);
                 
-                // 2. Hacer visible el menú
                 menu.setVisible(true);
                 
-                // --- FIN DE MODIFICACIÓN ---
 
-                // 5. Cerrar la ventana de Login
                 this.dispose();
 
             } else {
-                // Login Fallido
                 JOptionPane.showMessageDialog(this,
                         "Usuario o contraseña incorrectos.",
                         "Error de Autenticación",
@@ -152,7 +136,6 @@ public class FrmLogin extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            // Manejo de errores (ej. si no se puede conectar a la BD)
             JOptionPane.showMessageDialog(this,
                     "Ocurrió un error al intentar conectar con la base de datos.\n" + e.getMessage(),
                     "Error de Conexión",
