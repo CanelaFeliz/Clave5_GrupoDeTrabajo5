@@ -29,19 +29,16 @@ public class FrmGestionEmpleados extends javax.swing.JFrame {
         initComponents();
         
         // 1. Inicializar el DAO
-    this.empleadoDao = new EmpleadoDAO();
+        this.empleadoDao = new EmpleadoDAO();
 
-    // 2. Configurar el modelo de la tabla
-    configurarModeloTabla();
+        // 2. Configurar el modelo de la tabla
+        configurarModeloTabla();
 
-    // 3. Cargar los datos iniciales en la tabla
-    cargarTabla();
+        // 3. Cargar los datos iniciales en la tabla
+        cargarTabla();
 
-    // 4. Configurar el listener para clics en la tabla
-    configurarListenerTabla();
-
-    // 5. Centrar la ventana
-    this.setLocationRelativeTo(null);
+        // 4. Configurar el listener para clics en la tabla
+        configurarListenerTabla();
     }
     
     /**
@@ -307,6 +304,7 @@ public class FrmGestionEmpleados extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
