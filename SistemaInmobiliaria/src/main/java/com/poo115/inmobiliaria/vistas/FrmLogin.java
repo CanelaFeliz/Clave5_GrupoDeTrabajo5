@@ -10,15 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import com.poo115.inmobiliaria.vistas.FrmMenuPrincipal;
 
-/**
- *
- * @author Galleta
- */
 public class FrmLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmLogin
-     */
     public FrmLogin() {
         initComponents();
         
@@ -91,10 +84,6 @@ public class FrmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        /**
-     * Maneja el evento de clic en el botón "Ingresar".
-     * Valida los campos y utiliza el UsuarioDAO para verificar las credenciales.
-     */                                          
         
         String usuario = txtUsuario.getText();
         
