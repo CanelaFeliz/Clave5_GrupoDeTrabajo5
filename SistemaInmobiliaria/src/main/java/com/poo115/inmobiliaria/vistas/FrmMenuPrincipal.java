@@ -9,6 +9,7 @@ import com.poo115.inmobiliaria.vistas.FrmGestionPropiedades;
 import com.poo115.inmobiliaria.vistas.FrmGestionClientes;
 import com.poo115.inmobiliaria.vistas.FrmGestionEmpleados;
 import com.poo115.inmobiliaria.vistas.FrmGestionPropietarios;
+import com.poo115.inmobiliaria.vistas.FrmGestionContratos;
 /**
  *
  * @author Galleta
