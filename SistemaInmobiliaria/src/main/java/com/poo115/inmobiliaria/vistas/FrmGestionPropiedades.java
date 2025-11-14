@@ -12,10 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/**
- *
- * @author Galleta
- */
 public class FrmGestionPropiedades extends javax.swing.JFrame {
     
     private PropiedadDAO propiedadDao;
