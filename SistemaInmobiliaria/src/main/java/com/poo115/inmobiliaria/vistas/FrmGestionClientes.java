@@ -4,19 +4,185 @@
  */
 package com.poo115.inmobiliaria.vistas;
 
+import com.poo115.inmobiliaria.modelos.Cliente;
+import com.poo115.inmobiliaria.persistencia.ClienteDAO;
+import java.util.List;
+import java.util.regex.Pattern; 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 /**
  *
  * @author 2023
  */
 public class FrmGestionClientes extends javax.swing.JFrame {
 
+    private ClienteDAO clienteDao;
+    private DefaultTableModel tableModel;
+
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+    private static final String TELEFONO_REGEX = "^[267]\\d{7}$";
+    
+        
     /**
      * Creates new form FrmGestionClientes
      */
     public FrmGestionClientes() {
         initComponents();
-    }
 
+        this.clienteDao = new ClienteDAO();
+
+        configurarModeloTabla();
+
+        cargarTabla();
+
+        configurarListenerTabla();
+
+        this.setLocationRelativeTo(null);
+    }
+    /**
+     * Configura el DefaultTableModel para la tblClientes,
+     * definiendo las columnas y haciéndolas no editables.
+     */
+    private void configurarModeloTabla() {
+        tableModel = new DefaultTableModel(
+            new Object[][]{}, 
+            new String[]{"ID Cliente", "Nombre", "Apellido", "Teléfono", "Correo", "Tipo"}
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
+        tblClientes.setModel(tableModel);
+    }
+    
+    /**
+     * Obtiene la lista actualizada de clientes desde el DAO
+     * y las muestra en la JTable.
+     */
+    private void cargarTabla() {
+        tableModel.setRowCount(0);
+        
+        List<Cliente> clientes = clienteDao.obtenerTodosLosClientes();
+        
+        for (Cliente c : clientes) {
+            tableModel.addRow(new Object[]{
+                c.getId(),
+                c.getNombre(),
+                c.getApellido(),
+                c.getTelefono(),
+                c.getCorreo(),
+                c.getTipo()
+            });
+        }
+    }
+    
+    /**
+     * Resetea todos los campos del formulario a sus valores por defecto.
+     */
+    private void limpiarFormulario() {
+        txtId.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+        
+        rbtComprador.setSelected(true);
+        
+        txtId.setEnabled(true);
+    }
+    
+    /**
+     * Valida que los campos del formulario no estén vacíos
+     * y que el teléfono y correo tengan formatos válidos.
+     * @param esRegistro Si es true, valida también el campo ID.
+     * @return true si la validación es exitosa, false en caso contrario.
+     */
+    private boolean validarCampos(boolean esRegistro) {
+        String id = txtId.getText();
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        String telefono = txtTelefono.getText();
+        String correo = txtCorreo.getText();
+
+        if (nombre.isBlank() || apellido.isBlank() || telefono.isBlank() || correo.isBlank()) {
+            JOptionPane.showMessageDialog(this, 
+                    "Los campos Nombre, Apellido, Teléfono y Correo no pueden estar vacíos.", 
+                    "Error de Validación", 
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (esRegistro && id.isBlank()) {
+             JOptionPane.showMessageDialog(this, 
+                    "El campo ID Cliente no puede estar vacío.", 
+                    "Error de Validación", 
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        if (!Pattern.matches(TELEFONO_REGEX, telefono)) {
+             JOptionPane.showMessageDialog(this, 
+                    "Formato de teléfono inválido. Debe ser un número de 8 dígitos (Ej. 77778888).", 
+                    "Error de Formato", 
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+         if (!Pattern.matches(EMAIL_REGEX, correo)) {
+             JOptionPane.showMessageDialog(this, 
+                    "Formato de correo electrónico inválido.", 
+                    "Error de Formato", 
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Añade un MouseListener a la tabla para detectar clics en las filas.
+     * Cuando se selecciona una fila, sus datos se cargan en el formulario.
+     */
+    private void configurarListenerTabla() {
+        tblClientes.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int filaSeleccionada = tblClientes.getSelectedRow();
+                
+                if (filaSeleccionada != -1) {
+                    String id = tableModel.getValueAt(filaSeleccionada, 0).toString();
+                    String nombre = tableModel.getValueAt(filaSeleccionada, 1).toString();
+                    String apellido = tableModel.getValueAt(filaSeleccionada, 2).toString();
+                    String telefono = tableModel.getValueAt(filaSeleccionada, 3).toString();
+                    String correo = tableModel.getValueAt(filaSeleccionada, 4).toString();
+                    String tipo = tableModel.getValueAt(filaSeleccionada, 5).toString();
+
+                    txtId.setText(id);
+                    txtNombre.setText(nombre);
+                    txtApellido.setText(apellido);
+                    txtTelefono.setText(telefono);
+                    txtCorreo.setText(correo);
+                    
+                   
+                    if (tipo.equals("Comprador")) {
+                        rbtComprador.setSelected(true);
+                    } else {
+                        rbtArrendatario.setSelected(true);
+                    }
+                    
+                   
+                    txtId.setEnabled(false);
+                }
+            }
+        });
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,7 +214,7 @@ public class FrmGestionClientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestión de Clientes");
 
         txtId.addActionListener(new java.awt.event.ActionListener() {
@@ -77,12 +243,32 @@ public class FrmGestionClientes extends javax.swing.JFrame {
         rbtArrendatario.setText("Arrendatario");
 
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
-        btnEditar.setText("btnEditar");
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -128,16 +314,16 @@ public class FrmGestionClientes extends javax.swing.JFrame {
                     .addComponent(lblTipo)
                     .addComponent(lblCorreo))
                 .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(rbtArrendatario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(rbtComprador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(txtId)
+                    .addComponent(txtApellido)
+                    .addComponent(txtTelefono)
+                    .addComponent(txtCorreo))
+                .addGap(56, 56, 56)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -149,38 +335,38 @@ public class FrmGestionClientes extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(98, 98, 98)
-                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(98, 98, 98)
+                                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(34, 34, 34)
+                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                                 .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(rbtComprador))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(rbtComprador)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(rbtArrendatario)
                         .addGap(99, 99, 99))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblId)
-                                .addGap(24, 24, 24)
-                                .addComponent(lblNombre)
-                                .addGap(33, 33, 33)
-                                .addComponent(lblApellido)
-                                .addGap(37, 37, 37)
-                                .addComponent(lblTelefono)
-                                .addGap(38, 38, 38)
-                                .addComponent(lblCorreo)
-                                .addGap(35, 35, 35)
-                                .addComponent(lblTipo))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblId)
+                        .addGap(24, 24, 24)
+                        .addComponent(lblNombre)
+                        .addGap(33, 33, 33)
+                        .addComponent(lblApellido)
+                        .addGap(37, 37, 37)
+                        .addComponent(lblTelefono)
+                        .addGap(38, 38, 38)
+                        .addComponent(lblCorreo)
+                        .addGap(42, 42, 42)
+                        .addComponent(lblTipo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrar)
@@ -213,6 +399,127 @@ public class FrmGestionClientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
 
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarFormulario();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+
+        if (validarCampos(true)) {
+            
+            String id = txtId.getText();
+            
+            
+            if (clienteDao.buscarClientePorId(id) != null) {
+                 JOptionPane.showMessageDialog(this, 
+                         "El ID de Cliente ingresado ya existe. Intente con otro.", 
+                         "Error: ID Duplicado", 
+                         JOptionPane.WARNING_MESSAGE);
+                 return;
+            }
+
+           
+            String nombre = txtNombre.getText();
+            String apellido = txtApellido.getText();
+            String telefono = txtTelefono.getText();
+            String correo = txtCorreo.getText();
+           
+            String tipo = rbtComprador.isSelected() ? "Comprador" : "Arrendatario";
+
+            
+            Cliente c = new Cliente(id, nombre, apellido, telefono, correo, tipo);
+            
+            
+            clienteDao.registrarCliente(c);
+            
+          
+            JOptionPane.showMessageDialog(this, 
+                    "Cliente registrado con éxito.", 
+                    "Registro Exitoso", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            cargarTabla();
+            limpiarFormulario();
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+
+        if (txtId.getText().isBlank() || txtId.isEnabled()) {
+             JOptionPane.showMessageDialog(this, 
+                     "Por favor, seleccione un cliente de la tabla para editar.", 
+                     "Error de Selección", 
+                     JOptionPane.WARNING_MESSAGE);
+             return;
+        }
+        
+        
+        if (!validarCampos(false)) {
+          
+            return;
+        }
+        
+        
+        String id = txtId.getText(); 
+        String nombre = txtNombre.getText();
+        String apellido = txtApellido.getText();
+        String telefono = txtTelefono.getText();
+        String correo = txtCorreo.getText();
+        String tipo = rbtComprador.isSelected() ? "Comprador" : "Arrendatario";
+
+       
+        Cliente c = new Cliente(id, nombre, apellido, telefono, correo, tipo);
+        
+     
+        boolean exito = clienteDao.editarCliente(c);
+        
+      
+        if (exito) {
+            JOptionPane.showMessageDialog(this, "Cliente actualizado con éxito.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo actualizar el cliente (ID no encontrado).", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        cargarTabla();
+        limpiarFormulario();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+
+        int filaSeleccionada = tblClientes.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, 
+                    "Seleccione un cliente de la tabla para eliminar.", 
+                    "Error de Selección", 
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        
+        String id = tblClientes.getValueAt(filaSeleccionada, 0).toString();
+        
+        
+        int confirmacion = JOptionPane.showConfirmDialog(this, 
+            "¿Esta seguro de que desea eliminar al cliente con ID: " + id + "?", 
+            "Confirmar Eliminación", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+
+        
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            
+            boolean exito = clienteDao.eliminarCliente(id);
+            
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "El cliente eliminado con exito.", "Eliminacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo a el eliminar el cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            cargarTabla();
+            limpiarFormulario();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
