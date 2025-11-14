@@ -78,6 +78,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
 
         btnGestionContratos.setText("Contratos");
+        btnGestionContratos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionContratosActionPerformed(evt);
+            }
+        });
 
         btnGestionEmpleados.setText("Empleados");
         btnGestionEmpleados.addActionListener(new java.awt.event.ActionListener() {
@@ -179,6 +184,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         FrmGestionPropietarios frm = new FrmGestionPropietarios();
         frm.setVisible(true);
     }//GEN-LAST:event_btnGestionPropietariosActionPerformed
+
+    private void btnGestionContratosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionContratosActionPerformed
+        FrmGestionContratos frm = new FrmGestionContratos();
+        frm.setVisible(true);
+    }//GEN-LAST:event_btnGestionContratosActionPerformed
 
     /**
      * @param args the command line arguments
