@@ -1,34 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.poo115.inmobiliaria.vistas;
 
-// DAOs (los 4 principales)
 import com.poo115.inmobiliaria.persistencia.ContratoDAO;
 import com.poo115.inmobiliaria.persistencia.ClienteDAO;
 import com.poo115.inmobiliaria.persistencia.PropiedadDAO;
 import com.poo115.inmobiliaria.persistencia.EmpleadoDAO;
 
-// Modelos (los 4 principales)
 import com.poo115.inmobiliaria.modelos.Contrato;
 import com.poo115.inmobiliaria.modelos.Cliente;
 import com.poo115.inmobiliaria.modelos.Propiedad;
 import com.poo115.inmobiliaria.modelos.Empleado;
 
-// Clases de Java
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.LocalDate; // Para la fecha
-import java.time.format.DateTimeParseException; // Para validar la fecha
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
-/**
- *
- * @author Galleta
- */
 public class FrmGestionContratos extends javax.swing.JFrame {
     
     private ContratoDAO contratoDao;
@@ -37,42 +26,29 @@ public class FrmGestionContratos extends javax.swing.JFrame {
     private EmpleadoDAO empleadoDao;
     private DefaultTableModel tableModel;
 
-    /**
-     * Creates new form FrmGestionContratos
-     */
     public FrmGestionContratos() {
         initComponents();
         
-        // 1. Inicializar TODOS los DAOs
     this.contratoDao = new ContratoDAO();
     this.clienteDao = new ClienteDAO();
     this.propiedadDao = new PropiedadDAO();
     this.empleadoDao = new EmpleadoDAO();
 
-    // 2. Configurar el modelo de la tabla
     configurarModeloTabla();
 
-    // 3. Cargar los datos iniciales en la tabla
     cargarTabla();
 
-    // 4. Cargar los ComboBoxes
     cargarComboBoxes();
 
-    // 5. Configurar el listener para clics en la tabla
     configurarListenerTabla();
 
-    // 6. Centrar la ventana
     this.setLocationRelativeTo(null);
     }
     
-    /**
-     * Configura el DefaultTableModel para la tblContratos.
-     */
     private void configurarModeloTabla() {
         tableModel = new DefaultTableModel(
-            new Object[][]{}, // Sin filas iniciales
-            // Columnas basadas en Contrato.java y EsquemaDB.docx
-            new String[]{"ID Contrato", "ID Cliente", "ID Propiedad", "ID Empleado", "Operación", "Fecha", "Monto"}
+            new Object[][]{}, 
+           new String[]{"ID Contrato", "ID Cliente", "ID Propiedad", "ID Empleado", "Operación", "Fecha", "Monto"}
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -82,11 +58,7 @@ public class FrmGestionContratos extends javax.swing.JFrame {
         tblContratos.setModel(tableModel);
     }
     
-    /**
-     * Obtiene la lista actualizada de contratos desde el DAO
-     * y las muestra en la JTable.
-     */
-    private void cargarTabla() {
+   private void cargarTabla() {
         tableModel.setRowCount(0);
         List<Contrato> contratos = contratoDao.obtenerTodosLosContratos();
         
@@ -97,30 +69,23 @@ public class FrmGestionContratos extends javax.swing.JFrame {
                 c.getIdPropiedad(),
                 c.getIdEmpleado(),
                 c.getTipoOperacion(),
-                c.getFechaContrato().toString(), // Convertir LocalDate a String
+                c.getFechaContrato().toString(),
                 c.getMonto()
             });
         }
     }
     
-    /**
-     * Carga los JComboBox con los IDs de Clientes, Propiedades (solo Disponibles)
-     * y Empleados.
-     */
     private void cargarComboBoxes() {
-        // 1. Limpiar combos
+       
         cmbCliente.removeAllItems();
         cmbPropiedad.removeAllItems();
         cmbEmpleado.removeAllItems();
 
-        // 2. Cargar Clientes
         List<Cliente> clientes = clienteDao.obtenerTodosLosClientes();
         for (Cliente c : clientes) {
-            // Guardamos el ID, pero mostramos ID y Nombre
             cmbCliente.addItem(c.getId() + " - " + c.getNombre());
         }
 
-        // 3. Cargar Propiedades (¡SOLO LAS DISPONIBLES!)
         List<Propiedad> propiedades = propiedadDao.obtenerTodasLasPropiedades();
         for (Propiedad p : propiedades) {
             if (p.getEstado().equalsIgnoreCase("Disponible")) {
@@ -129,43 +94,28 @@ public class FrmGestionContratos extends javax.swing.JFrame {
             }
         }
 
-        // 4. Cargar Empleados
         List<Empleado> empleados = empleadoDao.obtenerTodosLosEmpleados();
         for (Empleado e : empleados) {
-            // Guardamos el Código (ID)
             cmbEmpleado.addItem(e.getCodigo() + " - " + e.getNombre());
         }
     }
     
-    /**
-     * Resetea todos los campos del formulario a sus valores por defecto.
-     */
     private void limpiarFormulario() {
         txtIdContrato.setText("");
         txtFecha.setText("");
         txtMonto.setText("");
         
-        // Reseleccionar combos y radio
         cmbCliente.setSelectedIndex(0);
         cmbPropiedad.setSelectedIndex(0);
         cmbEmpleado.setSelectedIndex(0);
         rbtVenta.setSelected(true);
         
-        // Rehabilita el campo ID (clave primaria)
         txtIdContrato.setEnabled(true);
         
-        // ¡Recargar el combo de propiedades es crucial!
-        // (porque una propiedad pudo dejar de estar disponible)
         cargarComboBoxes();
     }
     
-    /**
-     * Valida que los campos del formulario no estén vacíos
-     * y que el monto y la fecha sean válidos.
-     * @return true si la validación es exitosa, false en caso contrario.
-     */
     private boolean validarCampos() {
-        // 1. Validación de campos vacíos
         if (txtIdContrato.getText().isBlank() || txtFecha.getText().isBlank() || 
             txtMonto.getText().isBlank()) {
             
@@ -176,7 +126,6 @@ public class FrmGestionContratos extends javax.swing.JFrame {
             return false;
         }
         
-        // 2. Validación de combos (asegurarse de que haya opciones)
         if (cmbCliente.getSelectedIndex() == -1 || cmbPropiedad.getSelectedIndex() == -1 || cmbEmpleado.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, 
                     "Debe haber al menos un Cliente, Empleado y Propiedad (Disponible) registrados para crear un contrato.", 
@@ -185,7 +134,6 @@ public class FrmGestionContratos extends javax.swing.JFrame {
             return false;
         }
 
-        // 3. Validación de Monto (positivo)
         try {
             double monto = Double.parseDouble(txtMonto.getText());
             if (monto <= 0) {
@@ -203,7 +151,6 @@ public class FrmGestionContratos extends javax.swing.JFrame {
             return false;
         }
         
-        // 4. Validación de Fecha (Formato YYYY-MM-DD)
         try {
             LocalDate.parse(txtFecha.getText());
         } catch (DateTimeParseException e) {
@@ -217,10 +164,6 @@ public class FrmGestionContratos extends javax.swing.JFrame {
         return true;
     }
     
-    /**
-     * Añade un MouseListener a la tabla para detectar clics en las filas.
-     * Cuando se selecciona una fila, sus datos se cargan en el formulario.
-     */
     private void configurarListenerTabla() {
         tblContratos.addMouseListener(new MouseAdapter() {
             @Override
@@ -228,7 +171,6 @@ public class FrmGestionContratos extends javax.swing.JFrame {
                 int filaSeleccionada = tblContratos.getSelectedRow();
                 
                 if (filaSeleccionada != -1) {
-                    // Obtener datos de la fila seleccionada
                     String idContrato = tableModel.getValueAt(filaSeleccionada, 0).toString();
                     String idCliente = tableModel.getValueAt(filaSeleccionada, 1).toString();
                     String idPropiedad = tableModel.getValueAt(filaSeleccionada, 2).toString();
@@ -237,21 +179,15 @@ public class FrmGestionContratos extends javax.swing.JFrame {
                     String fecha = tableModel.getValueAt(filaSeleccionada, 5).toString();
                     String monto = tableModel.getValueAt(filaSeleccionada, 6).toString();
 
-                    // Poner datos en los campos de texto
                     txtIdContrato.setText(idContrato);
                     txtFecha.setText(fecha);
                     txtMonto.setText(monto);
                     
-                    // Seleccionar RadioButton
                     if (tipoOp.equalsIgnoreCase("Venta")) {
                         rbtVenta.setSelected(true);
                     } else {
                         rbtAlquiler.setSelected(true);
                     }
-                    
-                    // Seleccionar ComboBoxes (buscar el ítem que COMIENCE con el ID)
-                    // (Esto es más complejo porque el combo tiene "ID - Nombre")
-                    // Nota: Esto solo funciona si los IDs están en la lista actual.
                     
                     for (int i = 0; i < cmbCliente.getItemCount(); i++) {
                         if (cmbCliente.getItemAt(i).startsWith(idCliente + " -")) {
@@ -260,8 +196,6 @@ public class FrmGestionContratos extends javax.swing.JFrame {
                         }
                     }
                     
-                    // Para propiedad, es posible que la propiedad ya no esté "Disponible"
-                    // y no aparezca en el combo. La añadimos temporalmente si no está.
                     boolean propiedadEncontrada = false;
                     for (int i = 0; i < cmbPropiedad.getItemCount(); i++) {
                         if (cmbPropiedad.getItemAt(i).startsWith(idPropiedad + " -")) {
@@ -271,8 +205,7 @@ public class FrmGestionContratos extends javax.swing.JFrame {
                         }
                     }
                     if (!propiedadEncontrada) {
-                        // Si la propiedad es "Vendida/Alquilada", no está en la lista.
-                        // La añadimos solo para visualización.
+                        
                         Propiedad p = propiedadDao.buscarPropiedadPorCodigo(idPropiedad);
                         if (p != null) {
                              cmbPropiedad.addItem(p.getCodigo() + " - " + p.getDireccion());
@@ -287,7 +220,6 @@ public class FrmGestionContratos extends javax.swing.JFrame {
                         }
                     }
                     
-                    // Deshabilitar el campo ID
                     txtIdContrato.setEnabled(false);
                 }
             }
@@ -494,12 +426,10 @@ public class FrmGestionContratos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // 1. Validar los campos
         if (validarCampos()) {
             
             String idContrato = txtIdContrato.getText();
             
-            // 2. Verificar si el ID ya existe
             if (contratoDao.buscarContratoPorId(idContrato) != null) {
                  JOptionPane.showMessageDialog(this, 
                          "El ID de Contrato ingresado ya existe.", 
@@ -508,9 +438,6 @@ public class FrmGestionContratos extends javax.swing.JFrame {
                  return;
             }
 
-            // 3. Obtener datos del formulario
-            
-            // Extraer solo el ID de los ComboBoxes (Ej. "C001 - Juan Perez" -> "C001")
             String clienteCompleto = cmbCliente.getSelectedItem().toString();
             String idCliente = clienteCompleto.split(" - ")[0];
             
@@ -520,26 +447,21 @@ public class FrmGestionContratos extends javax.swing.JFrame {
             String empleadoCompleto = cmbEmpleado.getSelectedItem().toString();
             String idEmpleado = empleadoCompleto.split(" - ")[0];
             
-            // Obtener tipo y datos de texto
             String tipoOp = rbtVenta.isSelected() ? "Venta" : "Alquiler";
             LocalDate fecha = LocalDate.parse(txtFecha.getText());
             double monto = Double.parseDouble(txtMonto.getText());
 
-            // 4. Crear el objeto Contrato
             Contrato c = new Contrato(idContrato, idCliente, idPropiedad, idEmpleado, tipoOp, fecha, monto);
             
-            // 5. Llamar al DAO para registrar
-            // ¡Este método también actualiza el estado de la propiedad!
             boolean exito = contratoDao.registrarContrato(c);
             
-            // 6. Mostrar mensaje, recargar tabla y limpiar
             if(exito){
                 JOptionPane.showMessageDialog(this, 
                         "Contrato registrado con éxito. El estado de la propiedad '" + idPropiedad + "' ha sido actualizado.", 
                         "Registro Exitoso", 
                         JOptionPane.INFORMATION_MESSAGE);
                 cargarTabla();
-                limpiarFormulario(); // Esto también recarga los ComboBox (quitando la propiedad)
+                limpiarFormulario();
             } else {
                  JOptionPane.showMessageDialog(this, 
                         "No se pudo registrar el contrato.", 
@@ -550,7 +472,6 @@ public class FrmGestionContratos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // 1. Validar que haya una fila seleccionada
         if (txtIdContrato.getText().isBlank() || txtIdContrato.isEnabled()) {
              JOptionPane.showMessageDialog(this, 
                      "Por favor, seleccione un contrato de la tabla para editar.", 
@@ -559,13 +480,10 @@ public class FrmGestionContratos extends javax.swing.JFrame {
              return;
         }
         
-        // 2. Ejecutar validaciones (adaptadas)
-        // (Omitimos la validación de ID, pero mantenemos las otras)
-         if (txtFecha.getText().isBlank() || txtMonto.getText().isBlank()) {
+        if (txtFecha.getText().isBlank() || txtMonto.getText().isBlank()) {
              JOptionPane.showMessageDialog(this, "Los campos Fecha y Monto son obligatorios.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
              return;
          }
-         // (Validaciones de formato de monto y fecha...)
         try { Double.parseDouble(txtMonto.getText()); } 
         catch (NumberFormatException e) { JOptionPane.showMessageDialog(this, "Monto inválido.", "Error", JOptionPane.WARNING_MESSAGE); return; }
         
@@ -573,7 +491,6 @@ public class FrmGestionContratos extends javax.swing.JFrame {
         catch (DateTimeParseException e) { JOptionPane.showMessageDialog(this, "Fecha inválida (YYYY-MM-DD).", "Error", JOptionPane.WARNING_MESSAGE); return; }
         
         
-        // 3. Obtener datos del formulario
         String idContrato = txtIdContrato.getText();
         String idCliente = cmbCliente.getSelectedItem().toString().split(" - ")[0];
         String idPropiedad = cmbPropiedad.getSelectedItem().toString().split(" - ")[0];
@@ -582,11 +499,8 @@ public class FrmGestionContratos extends javax.swing.JFrame {
         LocalDate fecha = LocalDate.parse(txtFecha.getText());
         double monto = Double.parseDouble(txtMonto.getText());
 
-        // 4. Crear el objeto Contrato
         Contrato c = new Contrato(idContrato, idCliente, idPropiedad, idEmpleado, tipoOp, fecha, monto);
         
-        // 5. Llamar al DAO para editar
-        // (Esto también actualiza el estado de la *nueva* propiedad seleccionada)
         boolean exito = contratoDao.editarContrato(c);
         
         if (exito) {
