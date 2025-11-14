@@ -103,6 +103,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Propiedades"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGestionPropiedadesActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnGestionClientes">
       <Properties>

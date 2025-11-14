@@ -5,6 +5,7 @@
 package com.poo115.inmobiliaria.vistas;
 
 import com.poo115.inmobiliaria.modelos.Usuario;
+import com.poo115.inmobiliaria.vistas.FrmGestionPropiedades;
 
 /**
  *
@@ -60,6 +61,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         lblBienvenida.setText("Bienvenido, [usuario]");
 
         btnGestionPropiedades.setText("Propiedades");
+        btnGestionPropiedades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionPropiedadesActionPerformed(evt);
+            }
+        });
 
         btnGestionClientes.setText("Clientes");
 
@@ -135,6 +141,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         this.dispose();
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnGestionPropiedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionPropiedadesActionPerformed
+        FrmGestionPropiedades frm = new FrmGestionPropiedades();
+        frm.setVisible(true);
+    }//GEN-LAST:event_btnGestionPropiedadesActionPerformed
 
     /**
      * @param args the command line arguments
