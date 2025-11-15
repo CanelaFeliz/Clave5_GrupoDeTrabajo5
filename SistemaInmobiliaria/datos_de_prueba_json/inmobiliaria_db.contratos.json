@@ -1,0 +1,28 @@
+[{
+  "_id": {
+    "$oid": "6917d2eb235ddd64b9223ba6"
+  },
+  "idContrato": "K1",
+  "idCliente": "C1",
+  "idPropiedad": "P1",
+  "idEmpleado": "EMP2",
+  "tipoOperacion": "Alquiler",
+  "fechaContrato": {
+    "$date": "2022-12-13T06:00:00.000Z"
+  },
+  "monto": 5000
+},
+{
+  "_id": {
+    "$oid": "6917d315235ddd64b9223ba7"
+  },
+  "idContrato": "K2",
+  "idCliente": "C2",
+  "idPropiedad": "P3",
+  "idEmpleado": "EMP3",
+  "tipoOperacion": "Venta",
+  "fechaContrato": {
+    "$date": "2023-12-30T06:00:00.000Z"
+  },
+  "monto": 40000
+}]

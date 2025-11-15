@@ -1,0 +1,20 @@
+[{
+  "_id": {
+    "$oid": "6917d23a235ddd64b9223ba1"
+  },
+  "idPropietario": "PRO1",
+  "nombre": "Julio Cesar",
+  "telefono": "60506467",
+  "correo": "julio@gmail.com",
+  "propiedadesAsociadas": []
+},
+{
+  "_id": {
+    "$oid": "6917d25b235ddd64b9223ba2"
+  },
+  "idPropietario": "PRO2",
+  "nombre": "Laura Gomez",
+  "telefono": "75124633",
+  "correo": "laura@gmail.com",
+  "propiedadesAsociadas": []
+}]

@@ -1,0 +1,30 @@
+[{
+  "_id": {
+    "$oid": "6917d1a5235ddd64b9223b9e"
+  },
+  "codigo": "EMP1",
+  "nombre": "Admin",
+  "cargo": "Admin",
+  "salario": 1000,
+  "propiedadesGestionadas": []
+},
+{
+  "_id": {
+    "$oid": "6917d1b7235ddd64b9223b9f"
+  },
+  "codigo": "EMP2",
+  "nombre": "Nixie",
+  "cargo": "Ventas",
+  "salario": 850.5,
+  "propiedadesGestionadas": []
+},
+{
+  "_id": {
+    "$oid": "6917d1c8235ddd64b9223ba0"
+  },
+  "codigo": "EMP3",
+  "nombre": "Galleta",
+  "cargo": "Ventas",
+  "salario": 850.5,
+  "propiedadesGestionadas": []
+}]

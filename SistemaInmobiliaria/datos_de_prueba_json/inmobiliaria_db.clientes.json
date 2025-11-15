@@ -1,0 +1,22 @@
+[{
+  "_id": {
+    "$oid": "6917d122235ddd64b9223b9c"
+  },
+  "clienteId": "C1",
+  "nombre": "Juan",
+  "apellido": "Perez",
+  "telefono": "79273176",
+  "correo": "juan@gmail.com",
+  "tipo": "Comprador"
+},
+{
+  "_id": {
+    "$oid": "6917d16f235ddd64b9223b9d"
+  },
+  "clienteId": "C2",
+  "nombre": "Ana",
+  "apellido": "Martinez",
+  "telefono": "63159362",
+  "correo": "ana@gmail.com",
+  "tipo": "Arrendatario"
+}]

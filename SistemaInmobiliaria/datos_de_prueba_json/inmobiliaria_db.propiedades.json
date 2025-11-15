@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "6917d276235ddd64b9223ba3"
+  },
+  "codigo": "P1",
+  "tipo": "Casa",
+  "direccion": "Santo Tomas",
+  "precio": 10000,
+  "estado": "Alquilada",
+  "propietarioId": "PRO1"
+},
+{
+  "_id": {
+    "$oid": "6917d28b235ddd64b9223ba4"
+  },
+  "codigo": "P2",
+  "tipo": "Local",
+  "direccion": "Michapa",
+  "precio": 5000,
+  "estado": "Disponible",
+  "propietarioId": "PRO2"
+},
+{
+  "_id": {
+    "$oid": "6917d2a5235ddd64b9223ba5"
+  },
+  "codigo": "P3",
+  "tipo": "Apartamento",
+  "direccion": "SS",
+  "precio": 50000,
+  "estado": "Vendida",
+  "propietarioId": "PRO2"
+}]
