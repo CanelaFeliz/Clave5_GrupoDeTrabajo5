@@ -2,18 +2,20 @@ package com.poo115.inmobiliaria.modelos;
 
 public class Cliente {
 
-    
+    // Atributo para guardar el ID del cliente
     private String id; 
     private String nombre;
     private String apellido;
     private String telefono;
     private String correo;
+    // Tipo de cliente (por ejemplo: comprador o vendedor)    
     private String tipo; 
 
     public Cliente() {
         
     }
     
+    // Constructor que recibe todos los datos del cliente
     public Cliente(String id, String nombre, String apellido, String telefono, String correo, String tipo) {
         this.id = id;
         this.nombre = nombre;
@@ -23,6 +25,8 @@ public class Cliente {
         this.tipo = tipo;
     }
     
+    
+    // Metodos getter y setter para acceder y modificar los atributos    
     public String getId() {
         return id;
     }
@@ -71,6 +75,7 @@ public class Cliente {
         this.tipo = tipo;
     }
     
+    // Metodo para mostrar la información del cliente en forma de texto
     @Override
     public String toString() {
         return "Cliente{" +

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Empleado {
-    
+    // Codigo único del empleado
     private String codigo;
     private String nombre;
     private String cargo;
@@ -27,6 +27,8 @@ public class Empleado {
         }
     }
 
+    
+    // Getters y setters para acceder o modificar los datos del empleado
     public String getCodigo() {
         return codigo;
     }
@@ -67,6 +69,7 @@ public class Empleado {
         this.propiedadesGestionadas = propiedadesGestionadas;
     }
 
+    // Método para agregar una propiedad que el empleado está gestionando
     public void agregarPropiedadGestionada(String codigoPropiedad) {
         if (this.propiedadesGestionadas == null) {
             this.propiedadesGestionadas = new ArrayList<>();

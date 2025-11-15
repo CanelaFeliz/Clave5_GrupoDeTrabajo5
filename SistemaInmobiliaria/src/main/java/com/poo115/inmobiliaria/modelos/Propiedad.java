@@ -12,16 +12,18 @@ public class Propiedad {
     public Propiedad() {
         
     }
-
+    // Constructor con todos los datos de la propiedad
     public Propiedad(String codigo, String tipo, String direccion, double precio, String estado, String idPropietario) {
         this.codigo = codigo;
         this.tipo = tipo;
         this.direccion = direccion;
+        // Precio de la propiedad
         this.precio = precio;
         this.estado = estado;
+        // ID del propietario al que pertenece la propiedad
         this.idPropietario = idPropietario;
     }
-
+    // Métodos getter y setter para poder leer o cambiar los datos
     public String getCodigo() {
         return codigo;
     }

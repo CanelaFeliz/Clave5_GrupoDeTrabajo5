@@ -3,19 +3,21 @@ package com.poo115.inmobiliaria.modelos;
 import java.time.LocalDate;
 
 public class Contrato {
-
+    // Este es el ID del contrato
     private String idContrato;
     private String idCliente;
     private String idPropiedad;
     private String idEmpleado;
     private String tipoOperacion;
     private LocalDate fechaContrato; 
+    // Monto total del contrato
     private double monto;
 
     public Contrato() {
         
     }
 
+    // Constructor con todos los datos del contrato
     public Contrato(String idContrato, String idCliente, String idPropiedad, String idEmpleado, String tipoOperacion, LocalDate fechaContrato, double monto) {
         this.idContrato = idContrato;
         this.idCliente = idCliente;
@@ -26,6 +28,8 @@ public class Contrato {
         this.monto = monto;
     }
 
+    
+    // Getters y setters para poder leer o cambiar los datos cuando sea necesario
     public String getIdContrato() {
         return idContrato;
     }
@@ -86,6 +90,7 @@ public class Contrato {
        return 0.0;
     }
     
+    // Este método sirve para ver todos los datos del contrato como un texto
     @Override
     public String toString() {
         return "Contrato{" +

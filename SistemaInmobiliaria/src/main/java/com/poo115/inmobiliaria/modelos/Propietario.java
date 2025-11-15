@@ -14,7 +14,7 @@ public class Propietario {
     public Propietario() {
         this.propiedadesAsociadas = new ArrayList<>();
     }
-
+    // Constructor con todos los datos del propietario
     public Propietario(String idPropietario, String nombre, String telefono, String correo, List<String> propiedadesAsociadas) {
         this.idPropietario = idPropietario;
         this.nombre = nombre;
@@ -26,7 +26,7 @@ public class Propietario {
             this.propiedadesAsociadas = new ArrayList<>();
         }
     }
-
+    // Métodos getter y setter para acceder y modificar los datos del propietario
     public String getIdPropietario() {
         return idPropietario;
     }
